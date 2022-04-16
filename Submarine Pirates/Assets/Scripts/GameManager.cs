@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
 
     // Crewmates assigned
     public int crewBridge;
-    public int crewGalley
+    public int crewGalley;
     public int crewEngine;
     public int crewMedbay;
     public int crewMaintenance;
