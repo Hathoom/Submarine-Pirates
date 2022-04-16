@@ -183,13 +183,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99d423fee8250e4429bb8d3c4ab61f00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamestate: 
   happiness: 0
   health: 0
   food: 0
   fuel: 0
   crew: 0
   crewSick: 0
+  damage: 0
   depth: 0
+  depthChange: 0
   crewBridge: 0
   crewGalley: 0
   crewEngine: 0

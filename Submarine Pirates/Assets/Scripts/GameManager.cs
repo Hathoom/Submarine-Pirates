@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    /// Gamestates:
+    /// crew_assign
+    /// work
+    /// encounter
+    public string gamestate;
+
     // Resources
     public int happiness;
     public int health;
@@ -39,6 +45,7 @@ public class GameManager : MonoBehaviour
     // When the user is ready to end their turn, this advances the game
     public void endTurn()
     {
+        gamestate = "work";
         // CREWMATES DO WORK
 
         // Cooks in the galley
@@ -99,6 +106,12 @@ public class GameManager : MonoBehaviour
         {
             // All your crew is dead, you are stuck in the ocean
         }
+    }
+
+    // Decides what the encounter is
+    public void nextEncounter() 
+    {
+        gamestate = "encounter";
     }
 
 
