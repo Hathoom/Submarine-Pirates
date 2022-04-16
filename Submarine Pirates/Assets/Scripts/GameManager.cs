@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public int crewSick;
     public int damage;
     public int depth;
+    public int depthChange;
 
     // Crewmates assigned
     public int crewBridge;
@@ -38,14 +39,51 @@ public class GameManager : MonoBehaviour
     // When the user is ready to end their turn, this advances the game
     public void endTurn()
     {
+        // CREWMATES DO WORK
+
+        // Cooks in the galley
+        foodInc(crewGalley * 5);
+
+        // Moving down
+        depthInc(depthChange);
+
+        // Ship is repaired
+        damageInc(-crewMaintenance);
+
+        // SHIP CALCULATES VALUES
+
         // When there isn't enough food to feed people
         if (food < crew)
         {
             happinessInc(-10);
         }
 
+        // Bridge
+        if (crewBridge < 1)
+        {
+            // Take damage
+        }
+
+        // Engine
+        if (crewEngine < 1)
+        {
+            damageInc(5);
+        }
+
+        // MedBay
+        crewSickInc(-crewMedbay);
+
         // Crew eats food
         foodInc(-crew);
+        // Fuel is used
+        fuelInc(-1);
+        // Decreases health based on damage
+        healthInc(-damage);
+
+        // Ship barracks raises happiness
+        happinessInc(crewBarracks * 5);
+
+        // DEATH STATES
 
         if (happiness <= 0)
         {
@@ -61,8 +99,6 @@ public class GameManager : MonoBehaviour
         {
             // All your crew is dead, you are stuck in the ocean
         }
-
-
     }
 
 
