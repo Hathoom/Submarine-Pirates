@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
     public void healthInc(int amount)
     {
         health += amount;
-        if (health < 0) heatlh = 0;
+        if (health < 0) health = 0;
     }
 
     public void foodInc(int amount)
