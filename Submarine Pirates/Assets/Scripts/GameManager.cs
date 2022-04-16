@@ -4,12 +4,23 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    // Resources
     public int happiness;
     public int health;
     public int food;
     public int fuel;
     public int crew;
     public int crewSick;
+    public int depth;
+
+    // Crewmates assigned
+    public int crewBridge;
+    public int crewGalley
+    public int crewEngine;
+    public int crewMedbay;
+    public int crewMaintenance;
+    public int crewWeapons;
+    public int crewBarracks;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +33,8 @@ public class GameManager : MonoBehaviour
     {
         
     }
+
+
 
     public void happinessInc(int amount) {
         happiness += amount;
@@ -50,5 +63,10 @@ public class GameManager : MonoBehaviour
     public void crewSickInc(int amount)
     {
         crewSick += amount;
+    }
+
+    public void depthInc(int amount)
+    {
+        depth += amount;
     }
 }
