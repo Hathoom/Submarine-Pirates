@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +16,12 @@ public class GameManager : MonoBehaviour
     public int depth;
     public int depthChange;
 
+    public GameObject SelectedObject;
+
+    public GameObject DesinationObject;
+
+    public Camera mainCamera;
+
     // Crewmates assigned
     public int crewBridge;
     public int crewGalley;
@@ -27,13 +34,12 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        mainCamera = Camera.main;
     }
 
     // Update is called once per frame
     void Update()
     {
-
     }
 
     // When the user is ready to end their turn, this advances the game
@@ -149,4 +155,50 @@ public class GameManager : MonoBehaviour
         depth += amount;
         if (depth < 0) depth = 0;
     }
+
+    // old code delete if we don't need it anymore
+    // if (Input.GetMouseButtonDown(0))
+        // {
+        //     Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+        //     // 2D object
+        //     RaycastHit2D hit2D = Physics2D.GetRayIntersection(ray);
+        //     if (hit2D.collider != null &&(hit2D.collider.gameObject.CompareTag("Storage") || hit2D.collider.
+        //             gameObject.layer == LayerMask.NameToLayer("Storage"))) 
+        //     {
+        //         if (SelectedObject == null)
+        //         {
+        //             SelectedObject = hit2D.collider.gameObject;
+        //             // if we select CrewBase, we'll want to send CrewMembers elsewhere
+        //             if(SelectedObject.name == "CrewBase" && crew != 0)
+        //             {
+        //                 SelectedObject = hit2D.collider.gameObject;
+        //             }
+        //             else
+        //             {
+        //                 SelectedObject = null;
+        //             }
+        //         }
+        //         else
+        //         {
+        //             // get the 2nd object selected
+        //             DesinationObject = hit2D.collider.gameObject;
+                    
+        //             //send crew member from location to location
+        //             // Do this if CrewBase is selected
+        //             if (SelectedObject.name == "CrewBase")
+        //             {
+        //                 // move crew from the Base
+        //                 MoveCrewfromBase();
+        //             }
+        //         }
+        //     }
+        //     //remove selection
+        //     else
+        //     {
+        //         if (SelectedObject != null)
+        //         {
+        //             SelectedObject = null;
+        //         }
+        //     }
+        // }
 }
