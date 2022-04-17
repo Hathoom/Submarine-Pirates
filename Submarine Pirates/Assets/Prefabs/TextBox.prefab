@@ -28,6 +28,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3380893214108246508}
+  - {fileID: 3380893213881263823}
   - {fileID: 8060710773818050044}
   - {fileID: 8274535319313161552}
   - {fileID: 2799227287321192965}
@@ -61,15 +62,15 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3380893213881263816}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 28.170933}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3380893214108246508}
-  m_RootOrder: 0
+  m_Father: {fileID: 3380893213842116728}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -6.6497, y: -8}
+  m_AnchoredPosition: {x: -105.9055, y: -199.73419}
   m_SizeDelta: {x: 734.7501, y: 108.0663}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3380893213881263821
@@ -197,8 +198,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 28.170933}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 3380893213881263823}
+  m_Children: []
   m_Father: {fileID: 3380893213842116728}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -277,7 +277,7 @@ RectTransform:
   m_Children:
   - {fileID: 1061624600737737297}
   m_Father: {fileID: 3380893213842116728}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -365,7 +365,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2410061117654364883}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8060710773818050045}
+        m_TargetAssemblyTypeName: TextboxManager, Assembly-CSharp
+        m_MethodName: displayNextLine
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5215857904746447508
 GameObject:
   m_ObjectHideFlags: 0
@@ -507,9 +519,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3380893213842116728}
     m_Modifications:
+    - target: {fileID: 5727908706904600838, guid: c6d97de83ab3f8d4bb2c0ef1044fe56e, type: 3}
+      propertyPath: textboxBG
+      value: 
+      objectReference: {fileID: 3380893214108246483}
+    - target: {fileID: 5727908706904600838, guid: c6d97de83ab3f8d4bb2c0ef1044fe56e, type: 3}
+      propertyPath: textboxTxt
+      value: 
+      objectReference: {fileID: 3380893213881263822}
+    - target: {fileID: 5727908706904600838, guid: c6d97de83ab3f8d4bb2c0ef1044fe56e, type: 3}
+      propertyPath: continueBtn
+      value: 
+      objectReference: {fileID: 302936492268702044}
     - target: {fileID: 5727908706904600839, guid: c6d97de83ab3f8d4bb2c0ef1044fe56e, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5727908706904600839, guid: c6d97de83ab3f8d4bb2c0ef1044fe56e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -562,6 +586,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5727908706904600839, guid: c6d97de83ab3f8d4bb2c0ef1044fe56e, type: 3}
   m_PrefabInstance: {fileID: 2351155132197811451}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8060710773818050045 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5727908706904600838, guid: c6d97de83ab3f8d4bb2c0ef1044fe56e, type: 3}
+  m_PrefabInstance: {fileID: 2351155132197811451}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b82e94a1213b994680a27b33ed892cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2844964033228621750
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -571,7 +606,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6173970817426086630, guid: 406a7b33a583e704f9f6be14cc712daa, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6173970817426086630, guid: 406a7b33a583e704f9f6be14cc712daa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -624,6 +659,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6173970817426086630, guid: 406a7b33a583e704f9f6be14cc712daa, type: 3}
   m_PrefabInstance: {fileID: 2844964033228621750}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8274535319313161551 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6173970817426086649, guid: 406a7b33a583e704f9f6be14cc712daa, type: 3}
+  m_PrefabInstance: {fileID: 2844964033228621750}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71d2fbac888e9d0428f12c0f474a9c14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6467250195712929452
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -631,9 +677,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3380893213842116728}
     m_Modifications:
+    - target: {fileID: 9158232203687576744, guid: 698257d5b7cbbe6458c67f08404ea332, type: 3}
+      propertyPath: script
+      value: 
+      objectReference: {fileID: 8274535319313161551}
     - target: {fileID: 9158232203687576745, guid: 698257d5b7cbbe6458c67f08404ea332, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9158232203687576745, guid: 698257d5b7cbbe6458c67f08404ea332, type: 3}
       propertyPath: m_LocalPosition.x
