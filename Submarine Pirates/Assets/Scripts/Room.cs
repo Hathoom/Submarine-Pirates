@@ -14,21 +14,29 @@ public abstract class Room : MonoBehaviour
     public int crewNeeded;
     public int crew;
 
+    public TextMeshProUGUI crewCounter;
+
     public GameObject CrewMember;
 
     public Transform SpawnLocation;
 
     private GameObject OtherObject;
 
+    public void updateCrewTxt() {
+        crewCounter.text = crew.ToString();
+    }
+
     public void addCrew()
     {
         crew++;
+        updateCrewTxt();
     }
 
     public void subCrew()
     {
         crew--;
         if (crew < 0) crew = 0;
+        updateCrewTxt();
     }
 
     void OnTriggerEnter2D(Collider2D col)

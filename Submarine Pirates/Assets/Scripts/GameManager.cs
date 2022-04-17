@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
@@ -28,6 +30,13 @@ public class GameManager : MonoBehaviour
 
     public Camera mainCamera;
 
+    // UI
+    public TextMeshProUGUI foodTxt;
+    public TextMeshProUGUI damageTxt;
+    public TextMeshProUGUI fuelTxt;
+    public Slider happinessSlider;
+    public Slider healthSlider;
+
     // Crewmates assigned
     public Bridge bridge;
     public Galley galley;
@@ -46,7 +55,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        foodTxt.text = "Food: " + food;
+        damageTxt.text = "Hull Damage: " + damage;
+        fuelTxt.text = "Fuel: " + fuel;
+        happinessSlider.value = happiness;
+        healthSlider.value = health;
     }
 
     /*
