@@ -29,14 +29,18 @@ public class Bridge : Room
 
         if (2 < damage / 5)
         {
-            crewNeeded += 2;
+            crewNeeded += 1;
         }
         else
         {
             crewNeeded += (damage / 5);
         }
+
+        crewNeeded = crewNeeded * 2;
+
+        int currentCrew = crew * 2 + sickCrew;
         
-        int damageChance = (crewNeeded - crew) * 20;
+        int damageChance = (crewNeeded - currentCrew) * 20;
 
         if (damageChance >= Random.Range(0, 100)) {
             gameManager.damageInc(5);

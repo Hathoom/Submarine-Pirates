@@ -13,16 +13,21 @@ public abstract class Room : MonoBehaviour
     public TextMeshProUGUI crewGalleyTxt;
     public Button addCrewBtn;
     public Button subCrewBtn;
-    public int crewNeeded;
+    public int crewLimit;
     public int crew;
-    public int maxCrew;
     public int sickCrew;
+
+    public bool atCrewLimit = false;
+    public int crewNeeded;
 
     public TextMeshProUGUI crewCounter;
 
     public GameObject CrewMember;
+    public GameObject SickCrewMember;
 
     public Transform SpawnLocation;
+
+    public Transform SickSpawnLocation;
 
     private GameObject OtherObject;
 
@@ -33,6 +38,11 @@ public abstract class Room : MonoBehaviour
     public void addCrew()
     {
         crew++;
+
+        if(sickCrew + crew == crewLimit)
+        {
+            atCrewLimit = true;   
+        }
         updateCrewTxt();
     }
 
@@ -40,6 +50,23 @@ public abstract class Room : MonoBehaviour
     {
         crew--;
         if (crew < 0) crew = 0;
+        updateCrewTxt();
+    }
+
+    public void addSickCrew()
+    {
+        sickCrew++;
+
+        if(sickCrew + crew == crewLimit)
+        {
+            atCrewLimit = true;   
+        }
+        updateCrewTxt();
+    }
+
+    public void subSickCrew()
+    {
+        sickCrew--;
         updateCrewTxt();
     }
 
@@ -53,10 +80,35 @@ public abstract class Room : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D col)
     {
-        if (OtherObject.tag == "Draggable")
+        //take in healthy crew
+        if (OtherObject.tag == "Draggable" && OtherObject.layer == 9)
         {
-            Destroy(OtherObject);
-            addCrew();
+            //can't take in more crew
+            if(atCrewLimit)
+            {
+                Debug.Log("Room is tighter than a clown car");
+                OtherObject.transform.position = SpawnLocation.position;
+            }
+            else
+            {
+                Destroy(OtherObject);
+                addCrew();
+            }
+        }
+        //take in sick crew
+        else if (OtherObject.tag == "Draggable" && OtherObject.layer == 8)
+        {
+            //can't take in more crew
+            if(atCrewLimit)
+            {
+                Debug.Log("Room is tighter than a clown car");
+                OtherObject.transform.position = SickSpawnLocation.position;
+            }
+            else
+            {
+                Destroy(OtherObject);
+                addSickCrew();
+            }
         }
     }
 
@@ -81,6 +133,14 @@ public abstract class Room : MonoBehaviour
                 Debug.Log("Room is empty!");
             }
         }
+        if (Input.GetKeyDown("q"))
+        {
+            if (sickCrew > 0)
+            {
+                subSickCrew();
+                Instantiate(SickCrewMember, SickSpawnLocation.position, Quaternion.identity);
+            }
+        }
 
     }
     // remove all crew at turn end
@@ -101,9 +161,9 @@ public abstract class Room : MonoBehaviour
         return crew;
     }
 
-    public virtual int GetMaxCrew()
+    public virtual int GetCrewLimit()
     {
-        return maxCrew;
+        return crewLimit;
     }
 
     public virtual int GetCrewNeeded()

@@ -57,6 +57,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         mainCamera = Camera.main;
+        crew = maxCrew;
+        crewSick = maxSick;
     }
 
     // Update is called once per frame
