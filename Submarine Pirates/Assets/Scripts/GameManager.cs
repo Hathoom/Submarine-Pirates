@@ -58,6 +58,9 @@ public class GameManager : MonoBehaviour
     // Shop
     public ShopManager shopManager;
 
+    // Encounters
+    public EncounterManager encounterManager;
+
     // Crewmates assigned
     public Bridge bridge;
     public Galley galley;
@@ -182,7 +185,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("The Government has found you");
         }
         
-        textboxManager.setPostFunction(shopManager.startSurfaceShop);
+        textboxManager.setPostFunction(encounterManager.generateEncounter);
         textboxTrigger.triggerTextbox();
     }
 
@@ -359,7 +362,8 @@ public class GameManager : MonoBehaviour
         }
 
         //if you should be at a new level, then change the level you are at
-        if (depth < 100) level = 1;
+        if (depth == 0) level = 0;
+        else if (depth < 100) level = 1;
         else if (depth >= 100 && depth <= 199)
         {
             level = 2;
