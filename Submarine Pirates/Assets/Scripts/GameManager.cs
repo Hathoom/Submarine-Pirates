@@ -36,6 +36,8 @@ public class GameManager : MonoBehaviour
     public bool hasReachedLevel2 = false;
     public bool hasReachedLevel3 = false;
 
+    public bool emergencyLift = false;
+
     public int weaponPow;
     
 
@@ -119,11 +121,24 @@ public class GameManager : MonoBehaviour
 
     public void startTurn() {
         Debug.Log("New turn started");
+
+        //at start of turn, figure out how much crew is needed to run the ship
+        bridge.SetCrewNeeded();
+
+        //reset the WeaponPow
+        weaponPowInc(-weaponPow);
     }
     
     // When the user is ready to end their turn, this advances the game
     public void endTurn()
     {
+        
+        if(!bridge.CheckNeededCrew())
+        {
+            Debug.Log("You ended the turn without a proper bridge staff!");
+        }
+
+
         gamestate = "work";
         // CREWMATES DO WORK
 
@@ -332,6 +347,10 @@ public class GameManager : MonoBehaviour
     {
         //alter the depth
         amount = amount * depthDir;
+
+        //increase depth movement if emergencyLift is active
+        amount = amount * 2;
+    
         depth += amount;
 
         //decriment the number of turns you have to run from government
@@ -363,7 +382,7 @@ public class GameManager : MonoBehaviour
 
         //if you should be at a new level, then change the level you are at
         if (depth == 0) level = 0;
-        else if (depth < 100) level = 1;
+        else if (depth > 0 && depth < 100) level = 1;
         else if (depth >= 100 && depth <= 199)
         {
             level = 2;
@@ -411,6 +430,17 @@ public class GameManager : MonoBehaviour
 
     public void setDepthDir(int setDepthDir) {
         depthDir = setDepthDir;
+
+        //turn off emergency lift if the player decides they want to go further down.
+        if (depthDir == 1 && emergencyLift)
+        {
+            setEmergencyLift(false);
+        }
+    }
+
+    public void setEmergencyLift(bool value)
+    {
+        emergencyLift = value;
     }
 
     // gamemanger getters
