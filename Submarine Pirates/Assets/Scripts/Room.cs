@@ -16,6 +16,7 @@ public abstract class Room : MonoBehaviour
     public int crewNeeded;
     public int crew;
     public int maxCrew;
+    public int sickCrew;
 
     public TextMeshProUGUI crewCounter;
 
@@ -103,6 +104,11 @@ public abstract class Room : MonoBehaviour
     public virtual int GetCrewNeeded()
     {
         return crewNeeded;
+    }
+
+    public virtual int GetSickCrew()
+    {
+        return sickCrew;
     }
 
     public virtual GameManager GetGameManager()
