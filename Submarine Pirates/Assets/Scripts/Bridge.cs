@@ -35,7 +35,13 @@ public class Bridge : Room
         {
             crewNeeded += (damage / 5);
         }
-        // level - 1 + (hull / 5)
+        
+        int damageChance = (crewNeeded - crew) * 20;
+
+        if (damageChance >= Random.Range(0, 100)) {
+            gameManager.damageInc(5);
+            gameManager.healthInc(-10);
+        }
 
         base.endTurn();
     }

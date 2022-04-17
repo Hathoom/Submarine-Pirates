@@ -20,6 +20,7 @@ public class Barracks : Room
     {
         // alter what needs to be altered
         gameManager.happinessInc(crew * 5);
+        Debug.Log(crew);
 
         base.endTurn();
     }
