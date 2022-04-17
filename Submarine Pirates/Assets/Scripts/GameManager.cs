@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     public int damage;
     public int depth;
     public int depthChange;
+    public int depthDir; // 1 - down, 0 - no movement, -1 - up
+    public int gold;
 
     public int level;
 
@@ -34,6 +36,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI foodTxt;
     public TextMeshProUGUI damageTxt;
     public TextMeshProUGUI fuelTxt;
+    public TextMeshProUGUI goldTxt;
+    public TextMeshProUGUI depthTxt;
     public Slider happinessSlider;
     public Slider healthSlider;
     public TextMeshProUGUI crewCount;
@@ -58,14 +62,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("p"))
-        {
-            crewReset();
-        }
-
         foodTxt.text = "Food: " + food;
         damageTxt.text = "Hull Damage: " + damage;
         fuelTxt.text = "Fuel: " + fuel;
+        goldTxt.text = "Gold: " + gold;
+        depthTxt.text = "Depth: " + depth;
         happinessSlider.value = happiness;
         healthSlider.value = health;
         crewCount.text = "x" + crew;
@@ -113,33 +114,32 @@ public class GameManager : MonoBehaviour
         crewReset();
 
         
-        /*
+        
         // Crew eats food
         foodInc(-crew);
-        // Fuel is used
-        fuelInc(-1);
         // Decreases health based on damage
         healthInc(-damage);
-
-        // Ship barracks raises happiness
-        happinessInc(barracks.crew * 5);
 
         // DEATH STATES
 
         if (happiness <= 0)
         {
-            // Crew Mutinies! Game over.
+            Debug.Log("Crew Mutinies! Game over.");
         }
 
         if (health <= 0)
         {
-            // Ship is destroyed
+            Debug.Log("Ship is destroyed");
         }
 
         if (crew <= 0)
         {
-            // All your crew is dead, you are stuck in the ocean
-        }*/
+            Debug.Log("All your crew is dead, you are stuck in the ocean");
+        }
+
+        if (fuel <= 0) {
+            Debug.Log("You have no more fuel and can't move game over.");
+        }
     }
 
     // Decides what the encounter is
@@ -220,6 +220,10 @@ public class GameManager : MonoBehaviour
         {
             level = 4;
         }
+    }
+
+    public void setDepthDir(int setDepthDir) {
+        depthDir = setDepthDir;
     }
 
     // gamemanger getters

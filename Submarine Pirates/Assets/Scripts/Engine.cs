@@ -21,6 +21,7 @@ public class Engine : Room
     public override void endTurn() {
         // alter what needs to be altered
         gameManager.depthInc(crew);
+        Debug.Log(crew);
 
         gameManager.fuelInc(-1);
 
