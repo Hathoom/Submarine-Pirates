@@ -55,6 +55,8 @@ public class DragDrop : MonoBehaviour
         {
             //Debug.Log("Object: " + hit2D.collider.gameObject.name);
             //start the dragging
+
+            hit2D.collider.gameObject.tag = "Dragging";
             StartCoroutine(DragUpdate(hit2D.collider.gameObject));
         }
 
@@ -84,6 +86,7 @@ public class DragDrop : MonoBehaviour
                 yield return null;
             }
         }
+        clickedObject.tag = "Draggable";
         iDragComponent?.onEndDrag();
     }
 }
