@@ -125,6 +125,7 @@ public abstract class Room : MonoBehaviour
         {
             if (crew > 0)
             {
+                atCrewLimit = false;
                 subCrew();
                 Instantiate(CrewMember, SpawnLocation.position, Quaternion.identity);
             }
@@ -137,6 +138,7 @@ public abstract class Room : MonoBehaviour
         {
             if (sickCrew > 0)
             {
+                atCrewLimit = false;
                 subSickCrew();
                 Instantiate(SickCrewMember, SickSpawnLocation.position, Quaternion.identity);
             }
@@ -147,6 +149,8 @@ public abstract class Room : MonoBehaviour
     public virtual void RemoveAllCrew()
     {
         crew = 0;
+        sickCrew = 0;
+        atCrewLimit = false;
         updateCrewTxt();
     }
 

@@ -25,11 +25,18 @@ public class GameManager : MonoBehaviour
     public int crewSick;
     public int damage;
     public int depth;
-    public int depthChange;
     public int depthDir; // 1 - down, 0 - no movement, -1 - up
     public int gold;
 
     public int level;
+
+    public int govHuntTurns = 5;
+
+    public bool hasReachedLevel2 = false;
+    public bool hasReachedLevel3 = false;
+
+    public int weaponPow;
+    
 
     public Camera mainCamera;
 
@@ -62,7 +69,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         mainCamera = Camera.main;
-        crew = maxCrew;
+        crew = usableCrew;
         crewSick = maxSick;
     }
 
@@ -122,7 +129,6 @@ public class GameManager : MonoBehaviour
         weapons.endTurn();
 
         crewReset();
-
         
         // Crewmates don't have enough to eat
         if (food >= usableCrew) {
@@ -130,7 +136,6 @@ public class GameManager : MonoBehaviour
         } else {
             textboxTrigger.loadTxtFile("food_fail");
         }
-
         // Crew eats food
         foodInc(-usableCrew);
         // Decreases health based on damage
@@ -157,8 +162,14 @@ public class GameManager : MonoBehaviour
             Debug.Log("You have no more fuel and can't move game over.");
         }
 
+
         textboxManager.setPostFunction(startTurn);
         textboxTrigger.triggerTextbox();
+
+        if (govHuntTurns <= 0)
+        {
+            Debug.Log("The Government has found you");
+        }
     }
 
     // Decides what the encounter is
@@ -230,27 +241,58 @@ public class GameManager : MonoBehaviour
 
     public void depthInc(int amount)
     {
+        //alter the depth
+        amount = amount * depthDir;
         depth += amount;
-        if (depth < 0) depth = 0;
 
-        if (depth >= 100)
+        //decriment the number of turns you have to run from government
+        govHuntTurnsInc(-1);
+
+        //if you should be at a new level, then change the level you are at
+        if (depth < 100) depth = 0;
+        else if (depth >= 100 && depth <= 199)
         {
             level = 2;
+            if(!hasReachedLevel2)
+            {
+                hasReachedLevel2 = true;
+                govHuntTurns = 10;
+            }
         }
-        else if (depth >= 200)
+        else if (depth >= 200 && depth <= 299)
         {
             level = 3;
+            if(!hasReachedLevel3)
+            {
+                hasReachedLevel3 = true;
+                govHuntTurns = 15;
+            }
         }
         else if (depth >= 300)
         {
             level = 4;
+            // counter the above reduction, and increase # of free turns by 1
+            govHuntTurnsInc(2);
         }
+
     }
 
     public void goldInc(int amount)
     {
         gold += amount;
         if (gold < 0) gold = 0;
+    }
+
+    public void govHuntTurnsInc(int amount)
+    {
+        govHuntTurns = govHuntTurns + amount;
+        if (govHuntTurns < 0) govHuntTurns = 0;
+    }
+
+    public void weaponPowInc(int amount)
+    {
+        weaponPow += amount;
+        if (weaponPow < 0) weaponPow = 0;
     }
 
     public void setDepthDir(int setDepthDir) {
