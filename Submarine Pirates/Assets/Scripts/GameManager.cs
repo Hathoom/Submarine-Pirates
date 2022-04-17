@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI fuelTxt;
     public Slider happinessSlider;
     public Slider healthSlider;
+    public TextMeshProUGUI crewCount;
 
     // Crewmates assigned
     public Bridge bridge;
@@ -54,15 +55,12 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("p"))
-        {
-            crewReset();
-        }
         foodTxt.text = "Food: " + food;
         damageTxt.text = "Hull Damage: " + damage;
         fuelTxt.text = "Fuel: " + fuel;
         happinessSlider.value = happiness;
         healthSlider.value = health;
+        crewCount.text = "x" + crew;
     }
     public void crewReset()
     {
@@ -88,10 +86,10 @@ public class GameManager : MonoBehaviour
         crew = maxCrew;
     }
 
-    /*
+    
     // When the user is ready to end their turn, this advances the game
     public void endTurn()
-    {
+    {/*
         gamestate = "work";
         // CREWMATES DO WORK
 
@@ -152,8 +150,8 @@ public class GameManager : MonoBehaviour
         if (crew <= 0)
         {
             // All your crew is dead, you are stuck in the ocean
-        }
-    }*/
+        }*/
+    }
 
     // Decides what the encounter is
     public void nextEncounter() 
