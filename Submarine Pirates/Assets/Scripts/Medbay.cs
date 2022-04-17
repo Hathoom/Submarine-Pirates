@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Medbay : Room
 {
-    public int sickCrew;
+    //public int sickCrew;
 
     // Start is called before the first frame update
     void Start()
