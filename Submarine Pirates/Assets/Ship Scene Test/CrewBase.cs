@@ -34,7 +34,8 @@ public class CrewBase : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D col)
     {
-        if (OtherObject.tag == "Draggable")
+        // only take in CrewMembers
+        if (OtherObject.tag == "Draggable" && OtherObject.layer == 9)
         {
             Destroy(OtherObject);
             gameManager.crew = gameManager.crew + 1;

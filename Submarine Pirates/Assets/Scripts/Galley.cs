@@ -21,6 +21,7 @@ public class Galley : Room
     public override void endTurn() {
         // alter what needs to be altered
         gameManager.foodInc(crew * 5);
+        gameManager.foodInc(sickCrew * 3);
         base.endTurn();
     }
 }

@@ -58,6 +58,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         mainCamera = Camera.main;
+        crew = maxCrew;
+        crewSick = maxSick;
     }
 
     // Update is called once per frame
@@ -215,15 +217,15 @@ public class GameManager : MonoBehaviour
         depth += amount;
         if (depth < 0) depth = 0;
 
-        if (depth >= 10)
+        if (depth >= 100)
         {
             level = 2;
         }
-        else if (depth >= 20)
+        else if (depth >= 200)
         {
             level = 3;
         }
-        else if (depth >= 30)
+        else if (depth >= 300)
         {
             level = 4;
         }

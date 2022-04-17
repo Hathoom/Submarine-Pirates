@@ -20,7 +20,9 @@ public class Engine : Room
 
     public override void endTurn() {
         // alter what needs to be altered
-        gameManager.depthInc(crew);
+        gameManager.depthInc(crew * 10);
+        gameManager.depthInc(sickCrew * 5);
+        
         Debug.Log(crew);
 
         gameManager.fuelInc(-1);

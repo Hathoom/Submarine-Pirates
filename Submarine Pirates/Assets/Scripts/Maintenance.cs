@@ -19,7 +19,8 @@ public class Maintenance : Room
     public override void endTurn()
     {
         // alter what needs to be altered
-        gameManager.damageInc(-crew);
+        gameManager.damageInc(-crew * 2);
+        gameManager.damageInc(-sickCrew);
 
         base.endTurn();
     }

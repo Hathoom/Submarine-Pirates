@@ -23,12 +23,11 @@ public class Medbay : Room
 
     public override void endTurn()
     {
-        int sCrew = GetSickCrew();
 
         // alter what needs to be altered
         for (int i = 0; i < crew;  i++)
         {
-            if (sCrew > 0)
+            if (sickCrew > 0)
             {
                 if (Random.Range(0, 101) >= 50)
                 {
