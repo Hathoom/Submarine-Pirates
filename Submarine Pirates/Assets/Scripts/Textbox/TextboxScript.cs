@@ -5,5 +5,5 @@ using UnityEngine;
 public class TextboxScript : MonoBehaviour
 {
     public string name;
-    public string[] lines;
+    public List<string> lines = new List<string>();
 }

@@ -29,7 +29,10 @@ public class TextboxManager : MonoBehaviour
     }
 
     void Update() {
-        
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            FindObjectOfType<TextboxTrigger>().loadTxtFile("test");
+            FindObjectOfType<TextboxTrigger>().triggerTextbox();
+        }
     }
 
     public void startTextbox(TextboxScript script)
@@ -70,6 +73,10 @@ public class TextboxManager : MonoBehaviour
     public void setTextboxToggle(bool toggle) {
         canvas.enabled = toggle;
         displayingText = toggle;
+    }
+
+    public void setPostFunction(TestDelegate postFunction) {
+        this.postFunction = postFunction;
     }
 
     public void test() {
