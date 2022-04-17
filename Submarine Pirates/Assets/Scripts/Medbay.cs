@@ -20,12 +20,9 @@ public class Medbay : Room
         
     }
 
-    public override void RemoveAllCrew()
-    {
-        // grab necessary variables.
-        GameManager gameManager = base.GetGameManager();
-        int crew = base.GetCrew();
 
+    public override void endTurn()
+    {
         // alter what needs to be altered
         for (int i = 0; i < crew;  i++)
         {
@@ -44,8 +41,6 @@ public class Medbay : Room
             }
         }
 
-        //Call the original RemoveAllCrew to reset the zone
-        base.RemoveAllCrew();
-
+        base.endTurn();
     }
 }

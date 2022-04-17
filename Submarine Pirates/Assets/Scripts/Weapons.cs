@@ -15,18 +15,4 @@ public class Weapons : Room
     {
         
     }
-
-    public override void RemoveAllCrew()
-    {
-        // grab necessary variables.
-        GameManager gameManager = base.GetGameManager();
-        int crew = base.GetCrew();
-
-        // alter what needs to be altered
-        
-
-        //Call the original RemoveAllCrew to reset the zone
-        base.RemoveAllCrew();
-
-    }
 }

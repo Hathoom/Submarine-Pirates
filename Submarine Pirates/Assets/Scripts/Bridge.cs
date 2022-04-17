@@ -18,12 +18,8 @@ public class Bridge : Room
 
     }
 
-    public override void RemoveAllCrew()
+    public override void endTurn()
     {
-        // grab necessary variables.
-        GameManager gameManager = base.GetGameManager();
-        int crew = base.GetCrew();
-
         int level = gameManager.getLevel();
         int damage = gameManager.getDamage();
 
@@ -41,8 +37,6 @@ public class Bridge : Room
         }
         // level - 1 + (hull / 5)
 
-        //Call the original RemoveAllCrew to reset the zone
-        base.RemoveAllCrew();
-
+        base.endTurn();
     }
 }
