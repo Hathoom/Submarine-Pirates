@@ -29,13 +29,13 @@ public class GameManager : MonoBehaviour
     public Camera mainCamera;
 
     // Crewmates assigned
-    public int crewBridge;
-    public int crewGalley;
-    public int crewEngine;
-    public int crewMedbay;
-    public int crewMaintenance;
-    public int crewWeapons;
-    public int crewBarracks;
+    public Bridge bridge;
+    public Galley galley;
+    public Engine engine;
+    public Medbay medbay;
+    public Maintenance maintenance;
+    public Weapons weapons;
+    public Barracks barracks;
 
     // Start is called before the first frame update
     void Start()
@@ -46,8 +46,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
     }
 
+    /*
     // When the user is ready to end their turn, this advances the game
     public void endTurn()
     {
@@ -55,13 +57,13 @@ public class GameManager : MonoBehaviour
         // CREWMATES DO WORK
 
         // Cooks in the galley
-        foodInc(crewGalley * 5);
+        foodInc(galley.crew * 5);
 
         // Moving down
         depthInc(depthChange);
 
         // Ship is repaired
-        damageInc(-crewMaintenance);
+        damageInc(-maintenance.crew);
 
         // SHIP CALCULATES VALUES
 
@@ -72,13 +74,13 @@ public class GameManager : MonoBehaviour
         }
 
         // Bridge
-        if (crewBridge < 1)
+        if (bridge.crew < 1)
         {
             // Take damage
         }
 
         // Engine
-        if (crewEngine < 1)
+        if (engine.crew < 1)
         {
             damageInc(5);
         }
@@ -94,7 +96,7 @@ public class GameManager : MonoBehaviour
         healthInc(-damage);
 
         // Ship barracks raises happiness
-        happinessInc(crewBarracks * 5);
+        happinessInc(barracks.crew * 5);
 
         // DEATH STATES
 
@@ -112,7 +114,7 @@ public class GameManager : MonoBehaviour
         {
             // All your crew is dead, you are stuck in the ocean
         }
-    }
+    }*/
 
     // Decides what the encounter is
     public void nextEncounter() 

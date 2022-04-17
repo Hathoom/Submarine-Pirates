@@ -810,6 +810,7 @@ MonoBehaviour:
   addCrewBtn: {fileID: 0}
   subCrewBtn: {fileID: 0}
   crewNeeded: 0
+  crew: 0
 --- !u!4 &1093783927
 Transform:
   m_ObjectHideFlags: 0
@@ -965,9 +966,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 248495273885124307, guid: a6c4b6ef34dcd1443bfc10754f8aaf90, type: 3}
+      propertyPath: galley
+      value: 
+      objectReference: {fileID: 1093783926}
+    - target: {fileID: 248495273885124307, guid: a6c4b6ef34dcd1443bfc10754f8aaf90, type: 3}
       propertyPath: health
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 248495273885124307, guid: a6c4b6ef34dcd1443bfc10754f8aaf90, type: 3}
+      propertyPath: galleyObj
+      value: 
+      objectReference: {fileID: 1093783925}
     - target: {fileID: 248495273885124307, guid: a6c4b6ef34dcd1443bfc10754f8aaf90, type: 3}
       propertyPath: happiness
       value: 50

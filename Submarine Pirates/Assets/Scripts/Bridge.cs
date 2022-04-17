@@ -4,12 +4,12 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
 
-public class Galley : Room
+public class Bridge : Room
 {
     // Start is called before the first frame update
     void Start()
     {
-    
+
     }
 
     // Update is called once per frame
@@ -25,6 +25,6 @@ public class Galley : Room
             // Crew will be fine
         }
 
-        crewGalleyTxt.text = "Crew On Galley: " + crew;
+        crewGalleyTxt.text = "Crew On Bridge: " + crew;
     }
 }
