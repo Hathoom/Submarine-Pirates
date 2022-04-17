@@ -39,8 +39,17 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Ship Layer
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: CrewMember Layer
+    uniqueID: 1523316373
+    locked: 0
+  - name: Room Layer
+    uniqueID: 3360940919
+    locked: 0
+  - name: Ship Layer
+    uniqueID: 2015184927
     locked: 0

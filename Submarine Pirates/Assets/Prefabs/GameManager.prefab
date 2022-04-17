@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6455487454555787200}
   - component: {fileID: 248495273885124307}
+  - component: {fileID: 2625511796611941460}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -63,3 +64,33 @@ MonoBehaviour:
   maintenance: {fileID: 2021405475794377286, guid: bc6430dd58350eb4ebbc25a89ea8c5bb, type: 3}
   weapons: {fileID: 1340365993908306471, guid: dec84383fdb772a41bf616a359d7bfa9, type: 3}
   barracks: {fileID: 5048690955770422900, guid: ad2d16f433f6f474ba2090688d926a6f, type: 3}
+--- !u!114 &2625511796611941460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9064421109318097828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c410c5101616a34439297d007c241aee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouseClick:
+    m_Name: Mouse Click
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 91791801-29ad-4088-8615-04caae0fa54a
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: c73989c5-5b02-4b14-bd6b-8bde3f551dda
+      m_Path: <Mouse>/leftButton
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Mouse Click
+      m_Flags: 0
+  mouseDragPhysicsSpeed: 0
+  mouseDragSpeed: 0.1

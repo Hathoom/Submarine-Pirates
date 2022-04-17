@@ -15,6 +15,12 @@ public class Galley : Room
     // Update is called once per frame
     void Update()
     {
+
+    }
+
+    
+    public void CheckCrewRequirements()
+    {
         if (crew < crewNeeded)
         {
             // Shows that you will leave crew hungry
@@ -25,6 +31,6 @@ public class Galley : Room
             // Crew will be fine
         }
 
-        crewGalleyTxt.text = "Crew On Galley: " + crew;
+        crewGalleyTxt.text = "Crew On Bridge: " + crew;
     }
 }
