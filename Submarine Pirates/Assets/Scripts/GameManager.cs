@@ -20,10 +20,13 @@ public class GameManager : MonoBehaviour
     public int fuel;
     public int maxCrew;
     public int crew;
+    public int maxSick;
     public int crewSick;
     public int damage;
     public int depth;
     public int depthChange;
+
+    public int level;
 
     public Camera mainCamera;
 
@@ -55,6 +58,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown("p"))
+        {
+            crewReset();
+        }
+
         foodTxt.text = "Food: " + food;
         damageTxt.text = "Hull Damage: " + damage;
         fuelTxt.text = "Fuel: " + fuel;
@@ -190,6 +198,18 @@ public class GameManager : MonoBehaviour
         if (crew < 0) crew = 0;
     }
 
+    public void maxCrewInc(int amount)
+    {
+        maxCrew += amount;
+        if (maxCrew < 0) maxCrew = 0;
+    }
+
+    public void maxSickInc(int amount)
+    {
+        maxSick += amount;
+        if (maxSick < 0) maxSick = 0;
+    }
+
     public void crewSickInc(int amount)
     {
         crewSick += amount;
@@ -206,5 +226,30 @@ public class GameManager : MonoBehaviour
     {
         depth += amount;
         if (depth < 0) depth = 0;
+
+        if (depth >= 10)
+        {
+            level = 2;
+        }
+        else if (depth >= 20)
+        {
+            level = 3;
+        }
+        else if (depth >= 30)
+        {
+            level = 4;
+        }
+    }
+
+    // gamemanger getters
+
+    public int getLevel()
+    {
+        return level;
+    }
+
+    public int getDamage()
+    {
+        return damage;
     }
 }

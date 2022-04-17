@@ -19,18 +19,17 @@ public class Galley : Room
     }
 
     
-    public void CheckCrewRequirements()
+    public override void RemoveAllCrew()
     {
-        if (crew < crewNeeded)
-        {
-            // Shows that you will leave crew hungry
-        }
+        // grab necessary variables.
+        GameManager gameManager = base.GetGameManager();
+        int crew = base.GetCrew();
 
-        else
-        {
-            // Crew will be fine
-        }
+        // alter what needs to be altered
+        gameManager.foodInc(crew * 5);
 
-        crewGalleyTxt.text = "Crew On Bridge: " + crew;
+        //Call the original RemoveAllCrew to reset the zone
+        base.RemoveAllCrew();
+
     }
 }
