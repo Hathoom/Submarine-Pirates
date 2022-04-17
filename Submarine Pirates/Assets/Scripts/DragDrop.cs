@@ -39,8 +39,7 @@ public class DragDrop : MonoBehaviour
         // objects need colliders
         if (Physics.Raycast(ray, out hit)) {
             if (hit.collider != null &&(hit.collider.gameObject.CompareTag("Draggable") || hit.collider.
-                gameObject.layer == LayerMask.NameToLayer("Draggable") || hit.collider.gameObject.
-                GetComponent<IDrag>() != null)) 
+                gameObject.layer == LayerMask.NameToLayer("Draggable"))) 
             {
                 //start the dragging
                 StartCoroutine(DragUpdate(hit.collider.gameObject));
@@ -50,8 +49,7 @@ public class DragDrop : MonoBehaviour
         // 2D object
         RaycastHit2D hit2D = Physics2D.GetRayIntersection(ray);
         if (hit2D.collider != null &&(hit2D.collider.gameObject.CompareTag("Draggable") || hit2D.collider.
-                gameObject.layer == LayerMask.NameToLayer("Draggable") || hit2D.collider.gameObject.
-                GetComponent<IDrag>() != null)) 
+                gameObject.layer == LayerMask.NameToLayer("Draggable"))) 
         {
             //Debug.Log("Object: " + hit2D.collider.gameObject.name);
             //start the dragging
@@ -69,8 +67,6 @@ public class DragDrop : MonoBehaviour
         //grab the following components if the object has them.
         clickedObject.TryGetComponent<Rigidbody2D>(out var rb);
         // IDrag is a custom component to make custom physics.
-        clickedObject.TryGetComponent<IDrag>(out var iDragComponent);
-        iDragComponent?.onStartDrag();
 
         while (mouseClick.ReadValue<float>() != 0) {
             //move the object to the current location on screen.
@@ -87,6 +83,5 @@ public class DragDrop : MonoBehaviour
             }
         }
         clickedObject.tag = "Draggable";
-        iDragComponent?.onEndDrag();
     }
 }
