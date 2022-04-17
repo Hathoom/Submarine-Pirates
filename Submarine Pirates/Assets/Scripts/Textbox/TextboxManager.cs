@@ -6,14 +6,26 @@ using UnityEngine;
 
 public class TextboxManager : MonoBehaviour
 {
+    public delegate void TestDelegate();
+
     private Queue<string> lines;
+    public bool displayingText;
     public TextMeshProUGUI textboxTxt;
+    public Image textboxBG;
     public Button continueBtn;
+    public Canvas canvas;
+    public TestDelegate postFunction;
+
+    /// POST FUNCTION DOCUMENTATION
+    /// Whenever you call a textbox, pass in the function that you want it to execute 
+    /// ex. TextboxManager.postFunction = nextEncounter;
 
     // Start is called before the first frame update
     void Start()
     {
         lines = new Queue<string>();
+        setTextboxToggle(false);
+        postFunction = test;
     }
 
     void Update() {
@@ -22,7 +34,9 @@ public class TextboxManager : MonoBehaviour
 
     public void startTextbox(TextboxScript script)
     {
+
         Debug.Log("Running script " + script.name);
+        setTextboxToggle(true);
 
         lines.Clear();
 
@@ -48,6 +62,17 @@ public class TextboxManager : MonoBehaviour
 
     public void endTextbox()
     {
+        postFunction();
+        setTextboxToggle(false);
         Debug.Log("End of text.");
+    }
+
+    public void setTextboxToggle(bool toggle) {
+        canvas.enabled = toggle;
+        displayingText = toggle;
+    }
+
+    public void test() {
+        Debug.Log("Post Function works!");
     }
 }
