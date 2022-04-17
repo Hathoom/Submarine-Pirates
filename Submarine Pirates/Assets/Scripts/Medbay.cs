@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class Medbay : Room
 {
+    public int sickCrew;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,5 +18,34 @@ public class Medbay : Room
     void Update()
     {
         
+    }
+
+    public override void RemoveAllCrew()
+    {
+        // grab necessary variables.
+        GameManager gameManager = base.GetGameManager();
+        int crew = base.GetCrew();
+
+        // alter what needs to be altered
+        for (int i = 0; i < crew;  i++)
+        {
+            if (sickCrew > 0)
+            {
+                if (Random.Range(0, 101) >= 50)
+                {
+                    sickCrew = sickCrew - 1;
+                    gameManager.maxCrewInc(1);
+                    gameManager.maxSickInc(-1);
+                }
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        //Call the original RemoveAllCrew to reset the zone
+        base.RemoveAllCrew();
+
     }
 }

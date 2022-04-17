@@ -663,6 +663,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1416534833}
     - target: {fileID: 8721628536203172469, guid: 9ceb9c870b301e44f93ffa0e5024be24, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 1402678685}
+    - target: {fileID: 8721628536203172469, guid: 9ceb9c870b301e44f93ffa0e5024be24, type: 3}
       propertyPath: SpawnLocation
       value: 
       objectReference: {fileID: 1615432880}
@@ -750,9 +754,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4719626744570451886, guid: 391f2fd78d0f9434dacc79884e602afc, type: 3}
+      propertyPath: sickCrew
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4719626744570451886, guid: 391f2fd78d0f9434dacc79884e602afc, type: 3}
       propertyPath: crewCounter
       value: 
       objectReference: {fileID: 1846010496}
+    - target: {fileID: 4719626744570451886, guid: 391f2fd78d0f9434dacc79884e602afc, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 1402678685}
     - target: {fileID: 4719626744570451886, guid: 391f2fd78d0f9434dacc79884e602afc, type: 3}
       propertyPath: SpawnLocation
       value: 
@@ -2254,6 +2266,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1701735370}
     - target: {fileID: 2021405475794377286, guid: bc6430dd58350eb4ebbc25a89ea8c5bb, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 1402678685}
+    - target: {fileID: 2021405475794377286, guid: bc6430dd58350eb4ebbc25a89ea8c5bb, type: 3}
       propertyPath: SpawnLocation
       value: 
       objectReference: {fileID: 1615432880}
@@ -2856,9 +2872,17 @@ PrefabInstance:
       value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 248495273885124307, guid: a6c4b6ef34dcd1443bfc10754f8aaf90, type: 3}
+      propertyPath: level
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 248495273885124307, guid: a6c4b6ef34dcd1443bfc10754f8aaf90, type: 3}
       propertyPath: bridge
       value: 
       objectReference: {fileID: 406408071}
+    - target: {fileID: 248495273885124307, guid: a6c4b6ef34dcd1443bfc10754f8aaf90, type: 3}
+      propertyPath: damage
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 248495273885124307, guid: a6c4b6ef34dcd1443bfc10754f8aaf90, type: 3}
       propertyPath: engine
       value: 
@@ -2886,6 +2910,10 @@ PrefabInstance:
     - target: {fileID: 248495273885124307, guid: a6c4b6ef34dcd1443bfc10754f8aaf90, type: 3}
       propertyPath: maxCrew
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 248495273885124307, guid: a6c4b6ef34dcd1443bfc10754f8aaf90, type: 3}
+      propertyPath: maxSick
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 248495273885124307, guid: a6c4b6ef34dcd1443bfc10754f8aaf90, type: 3}
       propertyPath: weapons
@@ -3212,6 +3240,10 @@ PrefabInstance:
       propertyPath: crewCounter
       value: 
       objectReference: {fileID: 1827677869}
+    - target: {fileID: 4196938062702303880, guid: 6ebed20a8fb48104f991e42d4ee40f84, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 1402678685}
     - target: {fileID: 4196938062702303880, guid: 6ebed20a8fb48104f991e42d4ee40f84, type: 3}
       propertyPath: SpawnLocation
       value: 

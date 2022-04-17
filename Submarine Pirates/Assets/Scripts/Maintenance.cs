@@ -15,4 +15,18 @@ public class Maintenance : Room
     {
         
     }
+
+    public override void RemoveAllCrew()
+    {
+        // grab necessary variables.
+        GameManager gameManager = base.GetGameManager();
+        int crew = base.GetCrew();
+
+        // alter what needs to be altered
+        gameManager.damageInc(-crew);
+
+        //Call the original RemoveAllCrew to reset the zone
+        base.RemoveAllCrew();
+
+    }
 }

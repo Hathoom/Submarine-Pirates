@@ -18,18 +18,31 @@ public class Bridge : Room
 
     }
 
-    public void CheckCrewRequirements()
+    public override void RemoveAllCrew()
     {
-        if (crew < crewNeeded)
-        {
-            // Shows that you will leave crew hungry
-        }
+        // grab necessary variables.
+        GameManager gameManager = base.GetGameManager();
+        int crew = base.GetCrew();
 
+        int level = gameManager.getLevel();
+        int damage = gameManager.getDamage();
+
+        // alter what needs to be altered
+
+        int crewNeeded =  level - 1;
+
+        if (2 < damage / 5)
+        {
+            crewNeeded += 2;
+        }
         else
         {
-            // Crew will be fine
+            crewNeeded += (damage / 5);
         }
+        // level - 1 + (hull / 5)
 
-        crewGalleyTxt.text = "Crew On Bridge: " + crew;
+        //Call the original RemoveAllCrew to reset the zone
+        base.RemoveAllCrew();
+
     }
 }
