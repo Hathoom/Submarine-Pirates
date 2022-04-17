@@ -60,6 +60,9 @@ public class GameManager : MonoBehaviour
     // Shop
     public ShopManager shopManager;
 
+    // Encounters
+    public EncounterManager encounterManager;
+
     // Crewmates assigned
     public Bridge bridge;
     public Galley galley;
@@ -197,7 +200,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("The Government has found you");
         }
         
-        textboxManager.setPostFunction(shopManager.startSurfaceShop);
+        textboxManager.setPostFunction(encounterManager.generateEncounter);
         textboxTrigger.triggerTextbox();
     }
 
