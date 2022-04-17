@@ -20,9 +20,15 @@ public class Engine : Room
 
     public override void endTurn() {
         // alter what needs to be altered
-        gameManager.depthInc((crew * 10) + (sickCrew * 5));
-        
-        Debug.Log(crew);
+        //gameManager.depthInc();
+
+        //Debug.Log((GetCrew() * 10) + (GetSickCrew() * 5));
+
+        int totalDepth = (GetCrew() * 10) + (GetSickCrew() * 5);
+
+        //Debug.Log("totalDepth: " + totalDepth);
+
+        gameManager.depthInc(totalDepth);
 
         gameManager.fuelInc(-1);
 

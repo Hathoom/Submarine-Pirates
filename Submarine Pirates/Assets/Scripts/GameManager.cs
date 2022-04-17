@@ -359,7 +359,7 @@ public class GameManager : MonoBehaviour
         }
 
         //if you should be at a new level, then change the level you are at
-        if (depth < 100) depth = 0;
+        if (depth < 100) level = 1;
         else if (depth >= 100 && depth <= 199)
         {
             level = 2;
