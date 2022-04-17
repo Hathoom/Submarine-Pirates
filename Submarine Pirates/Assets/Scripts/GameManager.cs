@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public int crew;
     public int maxSick;
     public int crewSick;
+    public int crewDiedThisTurn;
     public int damage;
     public int depth;
     public int depthDir; // 1 - down, 0 - no movement, -1 - up
@@ -141,6 +142,17 @@ public class GameManager : MonoBehaviour
         // Decreases health based on damage
         healthInc(-damage);
 
+        //Check for starving
+        starveCheck();
+
+        //Kill sick crew
+        turnEndKillSick();
+
+        // inform user how much crew they lost and reset lost value
+        Debug.Log("You lost: " + crewDiedThisTurn + " CrewMembers!");
+        crewDiedThisTurn = 0;
+
+
         // DEATH STATES
 
         if (happiness <= 0)
@@ -162,14 +174,16 @@ public class GameManager : MonoBehaviour
             Debug.Log("You have no more fuel and can't move game over.");
         }
 
-
-        textboxManager.setPostFunction(startTurn);
-        textboxTrigger.triggerTextbox();
-
         if (govHuntTurns <= 0)
         {
             Debug.Log("The Government has found you");
         }
+
+        
+
+
+        textboxManager.setPostFunction(startTurn);
+        textboxTrigger.triggerTextbox();
     }
 
     // Decides what the encounter is
@@ -178,7 +192,73 @@ public class GameManager : MonoBehaviour
         gamestate = "encounter";
     }
 
+    //check for starving
+    public void starveCheck()
+    {
+        if(food <= -10)
+        {
+            //make a crewmember sick
+            if (usableCrew > 1)
+            {
+                usableCrewInc(-1);
+                maxSickInc(+1);
+            }
+        }
+        if(food <= -20)
+        {
+            //make a sick crewmember or regular crewmember dead.
+            if (maxSick > 1)
+            {
+                maxSickInc(-1);
+            }
+            else
+            {
+                usableCrewInc(-1);
+            }
+            maxCrewInc(-1);
+            food = -10;
+        }
+    }
 
+    //turn end Kill Sick Crew
+    public void turnEndKillSick()
+    {
+        int unsafeSickCrew = maxSick - medbay.GetSickCrew();
+        int crewDeaths = 0;
+        if (unsafeSickCrew > 0)
+        {
+            for (int i = 0; i < unsafeSickCrew; i++)
+            {
+                if(Random.Range(1, 101) <= 25)
+                {
+                    maxSickInc(-1);
+                    crewDeaths++;
+                }
+            }
+        }
+    }
+
+    // kill crew member
+    public void killCrewMember(int type)
+    {
+        // if type == 0 healthy crewmember
+        // if type == 1 sick crewmember
+
+        if (type == 0)
+        {
+            usableCrewInc(-1);
+        }
+        else if (type == 1)
+        {
+            maxSickInc(-1);
+        }
+
+        crewDiedThisTurnInc(1);
+    }
+
+
+
+    //incriments
     public void happinessInc(int amount)
     {
         happiness += amount;
@@ -233,6 +313,12 @@ public class GameManager : MonoBehaviour
         if (crewSick < 0) crewSick = 0;
     }
 
+    public void crewDiedThisTurnInc(int amount)
+    {
+        crewDiedThisTurn += amount;
+        if (crewDiedThisTurn < 0) crewDiedThisTurn = 0;
+    }
+
     public void damageInc(int amount)
     {
         damage += amount;
@@ -247,6 +333,30 @@ public class GameManager : MonoBehaviour
 
         //decriment the number of turns you have to run from government
         govHuntTurnsInc(-1);
+
+        //if you go fast crew may get sick
+        if (usableCrew > 0)
+        {
+            if (amount >= 40 && amount < 60 || amount > -60 && amount <=-40)
+            {
+                if (Random.Range(1, 101) <= 33)
+                {
+                    usableCrewInc(-1);
+                    maxSickInc(+1);
+                }
+            }
+            else if (amount >= 60 && amount < 80 || amount > -80 && amount <=-60)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    if (Random.Range(1, 101) <= 66)
+                    {
+                        usableCrewInc(-1);
+                        maxSickInc(+1);
+                    }
+                }
+            }
+        }
 
         //if you should be at a new level, then change the level you are at
         if (depth < 100) depth = 0;
