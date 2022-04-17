@@ -43,6 +43,10 @@ public class GameManager : MonoBehaviour
     public Slider healthSlider;
     public TextMeshProUGUI crewCount;
 
+    // Textbox
+    public TextboxTrigger textboxTrigger;
+    public TextboxManager textboxManager;
+
     // Crewmates assigned
     public Bridge bridge;
     public Galley galley;
@@ -99,6 +103,9 @@ public class GameManager : MonoBehaviour
         crewSick = maxSick;
     }
 
+    public void startTurn() {
+        Debug.Log("New turn started");
+    }
     
     // When the user is ready to end their turn, this advances the game
     public void endTurn()
@@ -117,9 +124,15 @@ public class GameManager : MonoBehaviour
         crewReset();
 
         
-        
+        // Crewmates don't have enough to eat
+        if (food >= usableCrew) {
+            textboxTrigger.loadTxtFile("food_pass");
+        } else {
+            textboxTrigger.loadTxtFile("food_fail");
+        }
+
         // Crew eats food
-        foodInc(-crew);
+        foodInc(-usableCrew);
         // Decreases health based on damage
         healthInc(-damage);
 
@@ -143,6 +156,9 @@ public class GameManager : MonoBehaviour
         if (fuel <= 0) {
             Debug.Log("You have no more fuel and can't move game over.");
         }
+
+        textboxManager.setPostFunction(startTurn);
+        textboxTrigger.triggerTextbox();
     }
 
     // Decides what the encounter is

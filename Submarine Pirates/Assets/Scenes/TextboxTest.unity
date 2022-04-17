@@ -328,6 +328,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1916115805}
     - target: {fileID: 8060710773818050045, guid: 77390aa0cb75a9447a66e571f4878adf, type: 3}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 1649592276}
+    - target: {fileID: 8060710773818050045, guid: 77390aa0cb75a9447a66e571f4878adf, type: 3}
       propertyPath: textboxTxt
       value: 
       objectReference: {fileID: 1916115805}
@@ -335,6 +339,10 @@ PrefabInstance:
       propertyPath: continueBtn
       value: 
       objectReference: {fileID: 345426895}
+    - target: {fileID: 8060710773818050045, guid: 77390aa0cb75a9447a66e571f4878adf, type: 3}
+      propertyPath: displayingText
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77390aa0cb75a9447a66e571f4878adf, type: 3}
 --- !u!1 &647048795

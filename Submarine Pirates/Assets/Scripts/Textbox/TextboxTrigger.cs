@@ -1,23 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class TextboxTrigger : MonoBehaviour
 {
     public TextboxScript script;
-
-    void Start() {
-        
-    }
-
-    void Update() {
-        if (Input.GetKeyDown(KeyCode.S)) {
-            triggerTextbox();
-        }
-    }
+    public delegate void TestDelegate();
+    public TextboxManager textboxManager;
 
     public void triggerTextbox()
     {
-        FindObjectOfType<TextboxManager>().startTextbox(script);
+        textboxManager.startTextbox(script);
+    }
+
+    public void loadTxtFile(string fname) {
+        string line;
+        script = new TextboxScript();
+        fname = "Assets/Textbox Files/" + fname + ".txt";
+        StreamReader reader = new StreamReader(fname);
+        
+        // Reads in the lines for the file
+        while ((line = reader.ReadLine()) != null) {
+            script.lines.Add(line);
+        }
+    }
+
+    // Used if you have a txt file you've already loaded and you want to add onto it with another
+    public void loadTxtFileAdd(string fname) {
+        string line;
+        fname = "Assets/Textbox Files/" + fname + ".txt";
+        StreamReader reader = new StreamReader(fname);
+        
+        // Reads in the lines for the file
+        while ((line = reader.ReadLine()) != null) {
+            script.lines.Add(line);
+        }
     }
 }
