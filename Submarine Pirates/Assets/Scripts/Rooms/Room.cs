@@ -11,8 +11,6 @@ public abstract class Room : MonoBehaviour
     // Controls the screen for the Galley
     public GameManager gameManager;
     public TextMeshProUGUI crewGalleyTxt;
-    public Button addCrewBtn;
-    public Button subCrewBtn;
     public int crewLimit;
     public int crew;
     public int sickCrew;
