@@ -55,6 +55,9 @@ public class GameManager : MonoBehaviour
     public TextboxTrigger textboxTrigger;
     public TextboxManager textboxManager;
 
+    // Shop
+    public ShopManager shopManager;
+
     // Crewmates assigned
     public Bridge bridge;
     public Galley galley;
@@ -178,11 +181,8 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("The Government has found you");
         }
-
         
-
-
-        textboxManager.setPostFunction(startTurn);
+        textboxManager.setPostFunction(shopManager.startSurfaceShop);
         textboxTrigger.triggerTextbox();
     }
 
