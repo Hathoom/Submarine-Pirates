@@ -22,7 +22,7 @@ public class Weapons : Room
     {
 
         // alter what needs to be altered
-        weaponPow = weaponPow + (crew * 2);
+        weaponPow = weaponPow + crew;
         if (sickCrew > 0)
         {
             for (int i = 0; i < crew;  i++)
@@ -32,9 +32,10 @@ public class Weapons : Room
                     weaponPow++;
                 }
             }
-
-            gameManager.weaponPowInc(weaponPow);
         }
+
+        gameManager.weaponPowInc(weaponPow);
+        weaponPow = 0;
         
         base.endTurn();
     }

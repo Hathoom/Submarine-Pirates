@@ -29,8 +29,12 @@ public abstract class Room : MonoBehaviour
 
     private GameObject OtherObject;
 
+    void Start() {
+        updateCrewTxt();
+    }
+
     public void updateCrewTxt() {
-        crewCounter.text = crew.ToString();
+        crewCounter.text = crew.ToString() + "/" + crewNeeded.ToString();
     }
 
     public void addCrew()

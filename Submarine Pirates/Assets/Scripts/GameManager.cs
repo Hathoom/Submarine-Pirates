@@ -150,6 +150,8 @@ public class GameManager : MonoBehaviour
         medbay.endTurn();
         weapons.endTurn();
 
+        Debug.Log(weaponPow);
+
         crewReset();
         
         // Crewmates don't have enough to eat
