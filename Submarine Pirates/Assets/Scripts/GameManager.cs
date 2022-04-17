@@ -54,6 +54,9 @@ public class GameManager : MonoBehaviour
     public TextboxTrigger textboxTrigger;
     public TextboxManager textboxManager;
 
+    // Shop
+    public ShopManager shopManager;
+
     // Crewmates assigned
     public Bridge bridge;
     public Galley galley;
@@ -162,14 +165,13 @@ public class GameManager : MonoBehaviour
             Debug.Log("You have no more fuel and can't move game over.");
         }
 
-
-        textboxManager.setPostFunction(startTurn);
-        textboxTrigger.triggerTextbox();
-
         if (govHuntTurns <= 0)
         {
             Debug.Log("The Government has found you");
         }
+
+        textboxManager.setPostFunction(shopManager.startSurfaceShop);
+        textboxTrigger.triggerTextbox();
     }
 
     // Decides what the encounter is
