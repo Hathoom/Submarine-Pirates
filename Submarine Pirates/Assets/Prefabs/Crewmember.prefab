@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1810576269990961899}
   - component: {fileID: 7286765951809597994}
   - component: {fileID: 7942194238757495851}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Crewmember
   m_TagString: Draggable
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1523316373
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: cda84af76e03b5144bdf8a34d6d2a889, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
