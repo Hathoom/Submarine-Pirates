@@ -18,7 +18,8 @@ public class GameManager : MonoBehaviour
     public int health;
     public int food;
     public int fuel;
-    public int maxCrew;
+    public int maxCrew;          // The max crew you can have on your ship
+    public int usableCrew;       // The number of crew you can send out
     public int crew;
     public int maxSick;
     public int crewSick;
@@ -94,7 +95,7 @@ public class GameManager : MonoBehaviour
         weapons.RemoveAllCrew();
         
 
-        crew = maxCrew;
+        crew = usableCrew;
         crewSick = maxSick;
     }
 
@@ -181,6 +182,12 @@ public class GameManager : MonoBehaviour
         if (crew < 0) crew = 0;
     }
 
+    public void usableCrewInc(int amount)
+    {
+        usableCrew += amount;
+        if (usableCrew < 0) usableCrew = 0;
+    }
+
     public void maxCrewInc(int amount)
     {
         maxCrew += amount;
@@ -222,6 +229,12 @@ public class GameManager : MonoBehaviour
         {
             level = 4;
         }
+    }
+
+    public void goldInc(int amount)
+    {
+        gold += amount;
+        if (gold < 0) gold = 0;
     }
 
     public void setDepthDir(int setDepthDir) {

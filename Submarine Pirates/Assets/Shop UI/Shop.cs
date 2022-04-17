@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuyItem : MonoBehaviour
+public abstract class Shop : MonoBehaviour
 {
 
-    private GameManager gameManager;
+    public GameManager gameManager;
     public int primaryCost;
     public int secondaryCost;
 
@@ -34,11 +34,10 @@ public class BuyItem : MonoBehaviour
 
     public void OnButtonClick()
     {
-        
         // reduct from the gameManager the primary cost
         if(useGold)
         {
-            //Gold not implemented on Gamemanager yet
+            // gameManager.goldInc(-useGold);
         }
         else if(useFood)
         {

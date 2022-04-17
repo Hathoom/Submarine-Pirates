@@ -31,8 +31,8 @@ public class Medbay : Room
             {
                 if (Random.Range(0, 101) >= 50)
                 {
-                    sickCrew = sickCrew - 1;
-                    gameManager.maxCrewInc(1);
+                    sCrew = sCrew - 1;
+                    gameManager.usableCrewInc(1);
                     gameManager.maxSickInc(-1);
                 }
             }
