@@ -4,6 +4,8 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
 
+// for functions to be shared, they need to be virtual, abstract, or override
+
 public abstract class Room : MonoBehaviour
 {
     // Controls the screen for the Galley
@@ -13,6 +15,7 @@ public abstract class Room : MonoBehaviour
     public Button subCrewBtn;
     public int crewNeeded;
     public int crew;
+    public int maxCrew;
 
     public TextMeshProUGUI crewCounter;
 
@@ -79,5 +82,33 @@ public abstract class Room : MonoBehaviour
         }
 
     }
+    // remove all crew at turn end
+    public virtual void RemoveAllCrew()
+    {
+        crew = 0;
+        updateCrewTxt();
+    }
+
+    // getters
+    public virtual int GetCrew()
+    {
+        return crew;
+    }
+
+    public virtual int GetMaxCrew()
+    {
+        return maxCrew;
+    }
+
+    public virtual int GetCrewNeeded()
+    {
+        return crewNeeded;
+    }
+
+    public virtual GameManager GetGameManager()
+    {
+        return gameManager;
+    }
+
 
 }

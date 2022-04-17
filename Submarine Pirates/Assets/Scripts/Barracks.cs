@@ -15,4 +15,19 @@ public class Barracks : Room
     {
         
     }
+
+    // override the RemoveAllCrew to make changes when turn ends
+    public override void RemoveAllCrew()
+    {
+        // grab necessary variables.
+        GameManager gameManager = base.GetGameManager();
+        int crew = base.GetCrew();
+
+        // alter what needs to be altered
+        gameManager.happinessInc(crew * 5);
+
+        //Call the original RemoveAllCrew to reset the zone
+        base.RemoveAllCrew();
+
+    }
 }
