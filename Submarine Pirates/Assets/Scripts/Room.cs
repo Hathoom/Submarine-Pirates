@@ -89,6 +89,11 @@ public abstract class Room : MonoBehaviour
         updateCrewTxt();
     }
 
+    // Called at the end of each turn
+    public virtual void endTurn() {
+        //RemoveAllCrew();
+    }
+
     // getters
     public virtual int GetCrew()
     {
@@ -109,6 +114,4 @@ public abstract class Room : MonoBehaviour
     {
         return gameManager;
     }
-
-
 }

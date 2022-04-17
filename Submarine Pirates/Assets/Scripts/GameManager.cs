@@ -92,47 +92,28 @@ public class GameManager : MonoBehaviour
         
 
         crew = maxCrew;
+        crewSick = maxSick;
     }
 
     
     // When the user is ready to end their turn, this advances the game
     public void endTurn()
-    {/*
+    {
         gamestate = "work";
         // CREWMATES DO WORK
 
-        // Cooks in the galley
-        foodInc(galley.crew * 5);
+        barracks.endTurn();
+        bridge.endTurn();
+        engine.endTurn();
+        galley.endTurn();
+        maintenance.endTurn();
+        medbay.endTurn();
+        weapons.endTurn();
 
-        // Moving down
-        depthInc(depthChange);
+        crewReset();
 
-        // Ship is repaired
-        damageInc(-maintenance.crew);
-
-        // SHIP CALCULATES VALUES
-
-        // When there isn't enough food to feed people
-        if (food < crew)
-        {
-            happinessInc(-10);
-        }
-
-        // Bridge
-        if (bridge.crew < 1)
-        {
-            // Take damage
-        }
-
-        // Engine
-        if (engine.crew < 1)
-        {
-            damageInc(5);
-        }
-
-        // MedBay
-        crewSickInc(-crewMedbay);
-
+        
+        /*
         // Crew eats food
         foodInc(-crew);
         // Fuel is used
