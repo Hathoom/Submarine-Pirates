@@ -4,6 +4,8 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
 
+// for functions to be shared, they need to be virtual, abstract, or override
+
 public abstract class Room : MonoBehaviour
 {
     // Controls the screen for the Galley
@@ -13,6 +15,8 @@ public abstract class Room : MonoBehaviour
     public Button subCrewBtn;
     public int crewNeeded;
     public int crew;
+
+    public int maxCrew;
 
     public GameObject CrewMember;
 
@@ -31,6 +35,8 @@ public abstract class Room : MonoBehaviour
         if (crew < 0) crew = 0;
     }
 
+
+    // handle crewmember being dragged and dropped over rooms
     void OnTriggerEnter2D(Collider2D col)
     {
         Debug.Log(col.gameObject.name + " : " + gameObject.name + " : " + Time.time);
@@ -69,7 +75,33 @@ public abstract class Room : MonoBehaviour
                 Debug.Log("Room is empty!");
             }
         }
+    }
 
+    // remove all crew at turn end
+    public virtual void RemoveAllCrew()
+    {
+        crew = 0;
+    }
+
+    // getters
+    public virtual int GetCrew()
+    {
+        return crew;
+    }
+
+    public virtual int GetMaxCrew()
+    {
+        return maxCrew;
+    }
+
+    public virtual int GetCrewNeeded()
+    {
+        return crewNeeded;
+    }
+
+    public virtual GameManager GetGameManager()
+    {
+        return gameManager;
     }
 
 }

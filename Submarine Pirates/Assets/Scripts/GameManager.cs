@@ -16,37 +16,42 @@ public class GameManager : MonoBehaviour
     public int health;
     public int food;
     public int fuel;
+    public int maxCrew;
     public int crew;
     public int crewSick;
     public int damage;
     public int depth;
     public int depthChange;
 
-    public GameObject SelectedObject;
-
-    public GameObject DesinationObject;
-
     public Camera mainCamera;
 
     // Crewmates assigned
+
+    public Barracks barracks;
     public Bridge bridge;
     public Galley galley;
     public Engine engine;
-    public Medbay medbay;
     public Maintenance maintenance;
+    public Medbay medbay;
     public Weapons weapons;
-    public Barracks barracks;
+
+    private GameObject[] objectsOnField;
+    
 
     // Start is called before the first frame update
     void Start()
     {
         mainCamera = Camera.main;
+        crew = maxCrew;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown("p"))
+        {
+            crewReset();
+        }
     }
 
     /*
@@ -122,7 +127,33 @@ public class GameManager : MonoBehaviour
         gamestate = "encounter";
     }
 
+    // tell everything to remove all crew from locations
+    // and reset the current available crew members
+    public void crewReset()
+    {
+        //get all crew not assigned on the map
+        objectsOnField = GameObject.FindGameObjectsWithTag("Draggable");
 
+        foreach(GameObject GObject in objectsOnField)
+        {
+            Destroy(GObject);
+        }
+
+        objectsOnField = null;
+
+        barracks.RemoveAllCrew();
+        bridge.RemoveAllCrew();
+        engine.RemoveAllCrew();
+        galley.RemoveAllCrew();
+        maintenance.RemoveAllCrew();
+        medbay.RemoveAllCrew();
+        weapons.RemoveAllCrew();
+        
+
+        crew = maxCrew;
+    }
+
+    // status increments
     public void happinessInc(int amount)
     {
         happiness += amount;
@@ -171,49 +202,5 @@ public class GameManager : MonoBehaviour
         if (depth < 0) depth = 0;
     }
 
-    // old code delete if we don't need it anymore
-    // if (Input.GetMouseButtonDown(0))
-        // {
-        //     Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
-        //     // 2D object
-        //     RaycastHit2D hit2D = Physics2D.GetRayIntersection(ray);
-        //     if (hit2D.collider != null &&(hit2D.collider.gameObject.CompareTag("Storage") || hit2D.collider.
-        //             gameObject.layer == LayerMask.NameToLayer("Storage"))) 
-        //     {
-        //         if (SelectedObject == null)
-        //         {
-        //             SelectedObject = hit2D.collider.gameObject;
-        //             // if we select CrewBase, we'll want to send CrewMembers elsewhere
-        //             if(SelectedObject.name == "CrewBase" && crew != 0)
-        //             {
-        //                 SelectedObject = hit2D.collider.gameObject;
-        //             }
-        //             else
-        //             {
-        //                 SelectedObject = null;
-        //             }
-        //         }
-        //         else
-        //         {
-        //             // get the 2nd object selected
-        //             DesinationObject = hit2D.collider.gameObject;
-                    
-        //             //send crew member from location to location
-        //             // Do this if CrewBase is selected
-        //             if (SelectedObject.name == "CrewBase")
-        //             {
-        //                 // move crew from the Base
-        //                 MoveCrewfromBase();
-        //             }
-        //         }
-        //     }
-        //     //remove selection
-        //     else
-        //     {
-        //         if (SelectedObject != null)
-        //         {
-        //             SelectedObject = null;
-        //         }
-        //     }
-        // }
+
 }
