@@ -6,18 +6,27 @@ public class EncounterRival : Encounter
 {
     public string encounterName;
     public int weaponsDefend;
-
     public int weaponsAttack;
 
     public int reward;
-
     public int rewardType;
 
-    public int damagePerCrew;
-    public int healthPerCrew;
+    public int hullDamage;
+    public int healthDamage;
+
+    public int additionalPunishment;
+    public int additionalPunishmentType;
+
+    public bool worsePunishment = false;
+    public int worseWeaponsNeeded;
+    public int worseHDamage;
+    public int worseHealth;
 
     //constructor
-    public EncounterRival(string encounterName, int weaponsDefend, int weaponsAttack, int reward, int rewardType, int damagePerCrew, int healthPerCrew) {
+    public EncounterRival(string encounterName, int weaponsDefend, int weaponsAttack, 
+                            int reward, int rewardType, int hullDamage, 
+                            int healthDamage, 
+                            int additionalPunishment, int additionalPunishmentType) {
         
         // rewardtype:
         // 0: nothing
@@ -27,14 +36,49 @@ public class EncounterRival : Encounter
         // 4: crew
         // 5: make crew sick
         // 6: happiness
+        // 7: hull damage
+        // 8: ship health
         this.encounterName = encounterName;
         this.weaponsDefend = weaponsDefend;
         this.weaponsAttack = weaponsAttack;
         this.reward = reward;
         this.reward = rewardType;
 
-        this.damagePerCrew = damagePerCrew;
-        this.healthPerCrew = healthPerCrew;
+        this.hullDamage = hullDamage;
+        this.healthDamage= healthDamage;
+    }
+
+            // 2 potential punishments constructor
+        public EncounterRival(string encounterName, int weaponsDefend, int weaponsAttack,
+                                int reward, int rewardType, int hullDamage, 
+                                int healthDamage, int additionalPunishment, 
+                                int additionalPunishmentType, 
+                                int worseWeaponsNeeded, int worseHDamage, 
+                                int worseHealth) {
+        
+        // rewardtype:
+        // 0: nothing
+        // 1: food
+        // 2: fuel
+        // 3: gold
+        // 4: crew
+        // 5: make crew sick
+        // 6: happiness
+        // 7: hull damage
+        // 8: ship health
+        this.weaponsAttack = weaponsAttack;
+        this.weaponsDefend = weaponsDefend;
+
+        this.hullDamage = hullDamage;
+        this.healthDamage = healthDamage;
+
+        this.worsePunishment = true;
+        this.worseWeaponsNeeded = worseWeaponsNeeded;
+        this.worseHDamage = worseHDamage;
+        this.worseHealth = worseHealth;
+
+        this.additionalPunishment = additionalPunishment;
+        this.additionalPunishmentType = additionalPunishmentType;
     }
 
 
@@ -48,70 +92,113 @@ public class EncounterRival : Encounter
     public override void executeEncounter() {
         GameManager gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
-        // weapons skill check
-        // pass the attack check
-        if (gameManager.weaponPow >= weaponsAttack) {
-            if (rewardType == 0)
-            {
-                
+        // simple take one punishment
+        if (worseWeaponsNeeded == 0)
+        {
+            // weapons skill check
+            // pass the attack check
+            if (gameManager.weaponPow >= weaponsAttack) {
+                AlterOtherValue(reward, rewardType);
+                textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/pass");
             }
-            if (rewardType == 1)
-            {
-                gameManager.foodInc(reward);
+            // succeed in defense
+            else if (gameManager.weaponPow <= weaponsAttack && gameManager.weaponPow >= weaponsDefend) {
+                textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/pass");
             }
-            else if (rewardType == 2)
-            {
-                gameManager.fuelInc(reward);
-            }
-            else if (rewardType == 3)
-            {
-                gameManager.goldInc(reward);
-            }
-            else if (rewardType == 4)
-            {
-                if (gameManager.maxSick + gameManager.usableCrew > gameManager.maxCrew)
+            else if (gameManager.weaponPow <= weaponsDefend) {
+                gameManager.damageInc(hullDamage);
+                gameManager.healthInc(-(healthDamage));
+                if (additionalPunishmentType != 0)
                 {
-                    Debug.Log("You are at max crew: no reward");
+                    AlterOtherValue(additionalPunishment, additionalPunishmentType);
                 }
-                else
-                {
-                    gameManager.usableCrewInc(reward);
-                }
-            }
-            else if (rewardType == 5)
-            {
-                if (gameManager.usableCrew == 0)
-                {
-                    Debug.Log("No more crew can get sick");
-                }
-                else if (gameManager.usableCrew < reward)
-                {
-                    reward = reward - gameManager.usableCrew;
-                }
-                gameManager.usableCrewInc(-reward);
-                gameManager.maxSickInc(reward);
-            }
-            else if (rewardType == 6)
-            {
-                gameManager.happinessInc(reward);
-            }
-            else
-            {
-                Debug.Log("ERROR WRONG REWARD TYPE ENTERED IN " + encounterName + " encounter!");
+                textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/fail");
             }
         }
-        // succeed in defense
-        else if (gameManager.weaponPow <= weaponsAttack && gameManager.weaponPow >= weaponsDefend) {
-            Debug.Log("Successful rival Defend");
-            textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/pass");
-        }
-        else if (gameManager.weaponPow <= weaponsDefend) {
-            gameManager.damageInc((weaponsDefend - gameManager.weaponPow) * damagePerCrew);
-            gameManager.healthInc(-(weaponsDefend - gameManager.weaponPow) * healthPerCrew);
-            textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/fail");
+        else
+        {
+            // succeed in defense
+            if (gameManager.weaponPow >= weaponsAttack) {
+                AlterOtherValue(reward, rewardType);
+                textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/pass");
+            }
+            // succeed in defense
+            else if (gameManager.weaponPow <= weaponsAttack && gameManager.weaponPow >= weaponsDefend) {
+                Debug.Log("Successful rival Defend");
+                textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/pass");
+            }
+            // partial defense
+            else if (gameManager.weaponPow <= weaponsDefend && gameManager.weaponPow >= worseWeaponsNeeded)
+            {
+                gameManager.damageInc(hullDamage);
+                gameManager.healthInc(-(healthDamage));
+                textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/fail");
+            }
+            else if (gameManager.weaponPow <= worseWeaponsNeeded) {
+                gameManager.damageInc(worseHDamage);
+                gameManager.healthInc(-(worseHealth));
+                if (additionalPunishmentType != 0)
+                {
+                    AlterOtherValue(additionalPunishment, additionalPunishmentType);
+                }
+                textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/fail");
+            }
         }
 
         textboxManager.setPostFunction(gameManager.startTurn);
         textboxTrigger.triggerTextbox();
+    }
+
+    public void AlterOtherValue(int num, int type)
+    {
+        if (type == 0)
+        {
+            //nothing happens
+        }
+        else if (type == 1)
+        {
+            gameManager.foodInc(num);
+        }
+        else if (type == 2)
+        {
+            gameManager.fuelInc(num);
+        }
+        else if (type == 3)
+        {
+            gameManager.goldInc(num);
+        }
+        else if (type == 4)
+        {
+            gameManager.usableCrewInc(num);
+        }
+        else if (type == 5)
+        {
+            if (gameManager.usableCrew == 0)
+            {
+                Debug.Log("No more crew can get sick");
+            }
+            else if (gameManager.usableCrew < num)
+            {
+                num = num - gameManager.usableCrew;
+            }
+            gameManager.usableCrewInc(-num);
+            gameManager.maxSickInc(num);
+        }
+        else if (type == 6)
+        {
+            gameManager.happinessInc(num);
+        }
+        else if (type == 7)
+        {
+            gameManager.damageInc(num);
+        }
+        else if (type == 8)
+        {
+            gameManager.healthInc(num);
+        }
+        else
+        {
+            Debug.Log("ERROR WRONG REWARD TYPE ENTERED IN " + encounterName + " encounter!");
+        }
     }
 }
