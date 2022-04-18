@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class EncounterDefend : Encounter
 {
+
+    public string encounterName;
+
     public int weaponsNeeded;
     public int damagePerCrew;
     public int healthPerCrew;
 
-    public EncounterDefend(int weaponsNeeded, int damagePerCrew, int healthPerCrew) {
+    //constructor
+    public EncounterDefend(string encounterName, int weaponsNeeded, int damagePerCrew, int healthPerCrew) {
+        
         // 0 - Surface Merchant
         // 1 - Fishing Vessal
         // 2 - ??
@@ -22,6 +27,7 @@ public class EncounterDefend : Encounter
     public override void executeEncounter() {
         GameManager gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
+        // weapons skill check
         if (gameManager.weaponPow == weaponsNeeded) {
             // Good
         } else if (gameManager.weaponPow < weaponsNeeded) {

@@ -313,6 +313,7 @@ public class GameManager : MonoBehaviour
     {
         usableCrew += amount;
         if (usableCrew < 0) usableCrew = 0;
+        if (usableCrew > maxCrew) usableCrew = maxCrew;
     }
 
     public void maxCrewInc(int amount)
