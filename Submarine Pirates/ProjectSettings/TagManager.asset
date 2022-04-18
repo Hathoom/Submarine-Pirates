@@ -39,11 +39,14 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Background Layer
   - Ship Layer
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Null Layer
+    uniqueID: 3841794685
     locked: 0
   - name: Background Layer
     uniqueID: 2272310761

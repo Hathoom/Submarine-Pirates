@@ -78,6 +78,8 @@ public class GameManager : MonoBehaviour
 
     private GameObject[] objectsOnField;
 
+    public Background background;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -497,6 +499,8 @@ public class GameManager : MonoBehaviour
             // counter the above reduction, and increase # of free turns by 1
             govHuntTurnsInc(2);
         }
+
+        background.SetBackground(level +1);
     }
 
     // gamemanger getters
