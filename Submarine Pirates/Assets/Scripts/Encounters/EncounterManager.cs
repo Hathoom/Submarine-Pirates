@@ -28,7 +28,7 @@ public class EncounterManager : MonoBehaviour
                 break;
             
             case 1: // Shallows
-                Encounter[] encounters = {new EncounterShop(0), new EncounterDefend(1, 3, 10)};
+                Encounter[] encounters = {new EncounterShop(0), new EncounterDefend("Test Level 1 Defend", 1, 3, 10)};
                 int encounterNum = Random.Range(0, encounters.Length);
                 encounter = encounters[encounterNum];
                 break;
