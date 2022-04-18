@@ -4,6 +4,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -180,25 +182,30 @@ public class GameManager : MonoBehaviour
         if (happiness <= 0)
         {
             Debug.Log("Crew Mutinies! Game over.");
+            youLose();
         }
 
         if (health <= 0)
         {
             Debug.Log("Ship is destroyed");
+            youLose();
         }
 
         if (crew <= 0)
         {
             Debug.Log("All your crew is dead, you are stuck in the ocean");
+            youLose();
         }
 
         if (fuel <= 0) {
             Debug.Log("You have no more fuel and can't move game over.");
+            youLose();
         }
 
         if (govHuntTurns <= 0)
         {
             Debug.Log("The Government has found you");
+            youLose();
         }
         
         textboxManager.setPostFunction(encounterManager.generateEncounter);
@@ -209,6 +216,11 @@ public class GameManager : MonoBehaviour
     public void nextEncounter() 
     {
         gamestate = "encounter";
+    }
+
+    public void youLose()
+    {
+        SceneManager.LoadScene("EndScene");
     }
 
     //check for starving
