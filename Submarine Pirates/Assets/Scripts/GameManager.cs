@@ -87,9 +87,9 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        foodTxt.text = "Food: " + food;
-        damageTxt.text = "Hull Damage: " + damage;
-        fuelTxt.text = "Fuel: " + fuel;
+        foodTxt.text = food.ToString();
+        damageTxt.text = damage.ToString();
+        fuelTxt.text = fuel.ToString();
         goldTxt.text = "Gold: " + gold;
         depthTxt.text = "Depth: " + depth;
         happinessSlider.value = happiness;
