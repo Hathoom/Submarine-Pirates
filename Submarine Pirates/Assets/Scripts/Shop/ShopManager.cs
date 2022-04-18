@@ -8,6 +8,7 @@ public class ShopManager : MonoBehaviour
     public GameManager gameManager;
     public Canvas shopCanvas;
     public Transform ShopSpawnTransform;
+    public EncounterManager encounterManager;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +34,6 @@ public class ShopManager : MonoBehaviour
     public void endShop() {
         Destroy(GameObject.FindWithTag("Shop"));
         toggleShopUI(false);
-        gameManager.startTurn();
+        encounterManager.encounter.endEncounter();
     }
 }

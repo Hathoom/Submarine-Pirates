@@ -20,6 +20,7 @@ public class EncounterManager : MonoBehaviour
     }
 
     public void generateEncounter() {
+        Debug.Log("generateEncounter");
         int level = gameManager.level;
 
         switch (level) {
@@ -34,6 +35,6 @@ public class EncounterManager : MonoBehaviour
                 break;
         }
 
-        encounter.executeEncounter();
+        encounter.startEncounter();
     }
 }

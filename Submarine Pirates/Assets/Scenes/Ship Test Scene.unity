@@ -4011,6 +4011,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6710260082826153084, guid: ff4af2d49c0f33646b68e06567024e47, type: 3}
     - target: {fileID: 4971121463920944620, guid: 7221d63eaca6b0746a5911b729b515a3, type: 3}
+      propertyPath: encounterManager
+      value: 
+      objectReference: {fileID: 2100618962}
+    - target: {fileID: 4971121463920944620, guid: 7221d63eaca6b0746a5911b729b515a3, type: 3}
       propertyPath: ShopSpawnTransform
       value: 
       objectReference: {fileID: 1794666171}
