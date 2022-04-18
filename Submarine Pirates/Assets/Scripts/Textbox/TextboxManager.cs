@@ -41,8 +41,6 @@ public class TextboxManager : MonoBehaviour
         Debug.Log("Running script " + script.name);
         setTextboxToggle(true);
 
-        lines.Clear();
-
         foreach (string line in script.lines)
         {
             lines.Enqueue(line);
@@ -65,9 +63,10 @@ public class TextboxManager : MonoBehaviour
 
     public void endTextbox()
     {
-        postFunction();
+        lines.Clear();
         setTextboxToggle(false);
         Debug.Log("End of text.");
+        postFunction();
     }
 
     public void setTextboxToggle(bool toggle) {
