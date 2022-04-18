@@ -38,11 +38,9 @@ public class EncounterBossDefend : Encounter
         this.additionalPunishmentType = additionalPunishmentType;
     }
 
-    // Runs the script for the start of the encounter
     public override void startEncounter() {
-        Debug.Log("Defend encounter started");
         textboxManager.setPostFunction(executeEncounter);
-        textboxTrigger.loadTxtFile("encounter_defend_1_start");
+        textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/start");
         textboxTrigger.triggerTextbox();
     }
 
@@ -58,6 +56,7 @@ public class EncounterBossDefend : Encounter
         if (gameManager.weaponPow >= weaponsNeeded) {
             // Passed Defend
             Debug.Log("Defend Passed");
+            textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/pass");
         } 
         else if (gameManager.weaponPow < weaponsNeeded) {
             gameManager.damageInc((weaponsNeeded - gameManager.weaponPow) * hullDamagePC);
@@ -70,6 +69,7 @@ public class EncounterBossDefend : Encounter
             }
             //textboxTrigger.loadTxtFile("encounter_defend_1_fail");
             Debug.Log("Defend Failed Damage taken");
+            textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/fail");
         }
         textboxManager.setPostFunction(gameManager.startTurn);
         textboxTrigger.triggerTextbox();
