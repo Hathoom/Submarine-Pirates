@@ -27,6 +27,12 @@ public class EncounterTreasure : Encounter
         this.reward = rewardType;
     }
 
+    public override void startEncounter() {
+        textboxManager.setPostFunction(executeEncounter);
+        textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/start");
+        textboxTrigger.triggerTextbox();
+    }
+
     public override void executeEncounter() {
         GameManager gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
@@ -75,6 +81,13 @@ public class EncounterTreasure : Encounter
             Debug.Log("ERROR WRONG REWARD TYPE ENTERED IN " + encounterName + " encounter!");
         }
 
-        gameManager.startTurn();
+        // If the file for end doesnt exist, it just does startTurn
+        if (System.IO.File.Exists("Encounter/" + encounterName + "/end")) {
+            textboxManager.setPostFunction(gameManager.startTurn);
+            textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/end");
+            textboxTrigger.triggerTextbox();
+        } else {
+            gameManager.startTurn();
+        }
     }
 }

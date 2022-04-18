@@ -42,7 +42,7 @@ public class EncounterRival : Encounter
     public override void startEncounter() {
         Debug.Log("Attack encounter started");
         textboxManager.setPostFunction(executeEncounter);
-        textboxTrigger.loadTxtFile("attack1");
+        textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/start");
         textboxTrigger.triggerTextbox();
     }
     public override void executeEncounter() {
@@ -103,12 +103,15 @@ public class EncounterRival : Encounter
         // succeed in defense
         else if (gameManager.weaponPow <= weaponsAttack && gameManager.weaponPow >= weaponsDefend) {
             Debug.Log("Successful rival Defend");
+            textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/pass");
         }
         else if (gameManager.weaponPow <= weaponsDefend) {
             gameManager.damageInc((weaponsDefend - gameManager.weaponPow) * damagePerCrew);
             gameManager.healthInc(-(weaponsDefend - gameManager.weaponPow) * healthPerCrew);
+            textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/fail");
         }
 
-        gameManager.startTurn();
+        textboxManager.setPostFunction(gameManager.startTurn);
+        textboxTrigger.triggerTextbox();
     }
 }

@@ -33,7 +33,7 @@ public class EncounterAttack : Encounter
     public override void startEncounter() {
         Debug.Log("Attack encounter started");
         textboxManager.setPostFunction(executeEncounter);
-        textboxTrigger.loadTxtFile("attack1");
+        textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/start");
         textboxTrigger.triggerTextbox();
     }
     public override void executeEncounter() {
@@ -90,13 +90,16 @@ public class EncounterAttack : Encounter
             {
                 Debug.Log("ERROR WRONG REWARD TYPE ENTERED IN " + encounterName + " encounter!");
             }
+            textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/pass");
         }
         //fail the weapons skill check 
         else if (gameManager.weaponPow < weaponsNeeded) {
             //No punishment
             Debug.Log("Attack Failure text");
+            textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/fail");
         }
 
-        gameManager.startTurn();
+        textboxManager.setPostFunction(gameManager.startTurn);
+        textboxTrigger.triggerTextbox();
     }
 }

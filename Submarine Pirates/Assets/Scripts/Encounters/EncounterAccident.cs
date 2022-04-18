@@ -20,12 +20,20 @@ public class EncounterAccident : Encounter
         this.healthDamage = healthDamage;
     }
 
+    public override void startEncounter() {
+        textboxManager.setPostFunction(executeEncounter);
+        textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/start");
+        textboxTrigger.triggerTextbox();
+    }
+
     public override void executeEncounter() {
         GameManager gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         gameManager.damageInc(hullDamage);
         gameManager.healthInc(healthDamage);
 
-        gameManager.startTurn();
+        textboxManager.setPostFunction(gameManager.startTurn);
+        textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/end");
+        textboxTrigger.triggerTextbox();
     }
 }
