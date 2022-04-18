@@ -15,9 +15,15 @@ public class TextboxTrigger : MonoBehaviour
     }
 
     public void loadTxtFile(string fname) {
+        Debug.Log("Running file " + fname);
+
         string line;
         script = new TextboxScript();
         fname = "Assets/Textbox Files/" + fname + ".txt";
+
+        if (!System.IO.File.Exists(fname))
+            Debug.Log("File " + fname + " does not exist.");
+
         StreamReader reader = new StreamReader(fname);
         
         // Reads in the lines for the file

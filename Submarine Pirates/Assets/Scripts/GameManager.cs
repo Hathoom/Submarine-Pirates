@@ -175,7 +175,6 @@ public class GameManager : MonoBehaviour
         Debug.Log("You lost: " + crewDiedThisTurn + " CrewMembers!");
         crewDiedThisTurn = 0;
 
-
         // DEATH STATES
 
         if (happiness <= 0)
