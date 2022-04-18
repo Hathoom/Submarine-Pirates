@@ -43,8 +43,8 @@ public class EncounterManager : MonoBehaviour
                     new EncounterRival("Rival_Pirates", 1, 2, 300, 3, 15, 3, 0 , 0), new EncounterTreasure("Falling_Anchor", 250, 3),
                     new EncounterTreasure("Big_Treasure", 500, 3), new EncounterTreasure("Deep_Sea_Catch_Fish", 15, 1),
                     new EncounterHappiness("Maintainance", 3, 7, 0, 0, 0, 0, 0, 0, 20, 8, 0, 0), new EncounterTreasure("Deep_Sea_Food_Poisoning", 2, 5),
-                    new EncounterTreasure("Deep_Sea_Find_Rum", 20, 6), new EncounterShop("Smuggler_Shop"level), new EncounterHappiness("Maintainance", 3, 7, 0, 0, 0, 0, 0, 0, 20, 8, 0, 0),
-                    new EncounterTreasure("Deep_Sea_Catch_Fish", 15, 1), new EncounterShop("Smuggler_Shop"level)};
+                    new EncounterTreasure("Deep_Sea_Find_Rum", 20, 6), new EncounterShop("Smuggler_Shop", level), new EncounterHappiness("Maintainance", 3, 7, 0, 0, 0, 0, 0, 0, 20, 8, 0, 0),
+                    new EncounterTreasure("Deep_Sea_Catch_Fish", 15, 1), new EncounterShop("Smuggler_Shop", level)};
                 encounterNum = Random.Range(0, deepEncounters.Length);
                 encounter = deepEncounters[encounterNum];
                 break;
@@ -57,7 +57,7 @@ public class EncounterManager : MonoBehaviour
                 new EncounterTreasure("Abyss_Food_Poisoning", 3, 5), new EncounterTreasure("Abyss_Food_Goes_Bad", 10, 1), 
                 new EncounterAccident("Abyss_Accident", 5, 10), 
                 new EncounterTreasure("Abyss_Rescue_Crewmate", 1, 4), 
-                new EncounterShop("Scrapper_Shop"level), new EncounterShop("Scrapper_Shop"level)};
+                new EncounterShop("Scrapper_Shop", level), new EncounterShop("Scrapper_Shop", level)};
                 encounterNum = Random.Range(0, abyssEncounters.Length);
                 encounter = abyssEncounters[encounterNum];
                 break;
