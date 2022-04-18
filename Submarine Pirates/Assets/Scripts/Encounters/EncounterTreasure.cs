@@ -39,50 +39,7 @@ public class EncounterTreasure : Encounter
         Debug.Log("Treasure Encounte Executed");
         GameManager gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
-        if (rewardType == 1)
-        {
-            gameManager.foodInc(reward);
-        }
-        else if (rewardType == 2)
-        {
-            gameManager.fuelInc(reward);
-        }
-        else if (rewardType == 3)
-        {
-            gameManager.goldInc(reward);
-        }
-        else if (rewardType == 4)
-        {
-            if (gameManager.maxSick + gameManager.usableCrew > gameManager.maxCrew)
-            {
-                Debug.Log("You are at max crew: no reward");
-            }
-            else
-            {
-                gameManager.usableCrewInc(reward);
-            }
-        }
-        else if (rewardType == 5)
-        {
-            if (gameManager.usableCrew == 0)
-            {
-                Debug.Log("No more crew can get sick");
-            }
-            else if (gameManager.usableCrew < reward)
-            {
-                reward = reward - gameManager.usableCrew;
-            }
-            gameManager.usableCrewInc(-reward);
-            gameManager.maxSickInc(reward);
-        }
-        else if (rewardType == 6)
-        {
-            gameManager.happinessInc(reward);
-        }
-        else
-        {
-            Debug.Log("ERROR WRONG REWARD TYPE ENTERED IN " + encounterName + " encounter!");
-        }
+        AlterValue(reward, rewardType);
 
         // If the file for end doesnt exist, it just does startTurn
         if (System.IO.File.Exists("Encounter/" + encounterName + "/end")) {
@@ -91,6 +48,81 @@ public class EncounterTreasure : Encounter
             textboxTrigger.triggerTextbox();
         } else {
             gameManager.startTurn();
+        }
+    }
+
+    public void AlterValue(int num, int type)
+    {
+        if (type == 0)
+        {
+            //nothing happens
+        }
+        else if (type == 1)
+        {
+            gameManager.foodInc(num);
+        }
+        else if (type == 2)
+        {
+            gameManager.fuelInc(num);
+        }
+        else if (type == 3)
+        {
+            gameManager.goldInc(num);
+        }
+        else if (type == 4)
+        {
+            // add crew
+            if (num > 0)
+            {
+                if (gameManager.maxSick + gameManager.usableCrew > gameManager.maxCrew)
+                {
+                    Debug.Log("You are at max crew: no reward");
+                }
+                else
+                {
+                    gameManager.usableCrewInc(num);
+                }
+            }
+            // kill crew
+            else if (num < 0)
+            {
+                for (int i = 0; i > num; i = i - 1)
+                {
+                    gameManager.killCrewMember(0);
+                }
+            }
+        }
+        else if (type == 5)
+        {
+            // no crew to make sick
+            if (gameManager.usableCrew == 0)
+            {
+                Debug.Log("No more crew can get sick");
+            }
+            // not enough crew to make sick
+            else if (gameManager.usableCrew < num)
+            {
+                num = num - gameManager.usableCrew;
+            }
+            // reduce usuable crew and make crew members sick
+            gameManager.usableCrewInc(-num);
+            gameManager.maxSickInc(num);
+        }
+        else if (type == 6)
+        {
+            gameManager.happinessInc(num);
+        }
+        else if (type == 7)
+        {
+            gameManager.damageInc(num);
+        }
+        else if (type == 8)
+        {
+            gameManager.healthInc(num);
+        }
+        else
+        {
+            Debug.Log("ERROR WRONG REWARD TYPE ENTERED IN " + encounterName + " encounter!");
         }
     }
 }
