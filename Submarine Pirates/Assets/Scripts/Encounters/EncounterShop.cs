@@ -15,6 +15,13 @@ public class EncounterShop : Encounter
         this.shopLevel = shopLevel;
     }
 
+    public override void startEncounter() {
+        Debug.Log("Defend encounter started");
+        textboxManager.setPostFunction(executeEncounter);
+        textboxTrigger.loadTxtFile("encounter_shop_0_start");
+        textboxTrigger.triggerTextbox();
+    }
+
     public override void executeEncounter() {
         ShopManager shopManager = GameObject.Find("ShopManager").GetComponent<ShopManager>();
 
@@ -23,5 +30,11 @@ public class EncounterShop : Encounter
                 shopManager.startSurfaceShop();
                 break;
         }
+    }
+
+    public override void endEncounter() {
+        textboxManager.setPostFunction(gameManager.startTurn);
+        textboxTrigger.loadTxtFile("encounter_shop_0_end");
+        textboxTrigger.triggerTextbox();
     }
 }

@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class EncounterDefend : Encounter
 {
-
-    public string encounterName;
-
     public int weaponsNeeded;
     public int damagePerCrew;
     public int healthPerCrew;
@@ -24,17 +21,27 @@ public class EncounterDefend : Encounter
         this.healthPerCrew = healthPerCrew;
     }
 
+    // Runs the script for the start of the encounter
+    public override void startEncounter() {
+        Debug.Log("Defend encounter started");
+        textboxManager.setPostFunction(executeEncounter);
+        textboxTrigger.loadTxtFile("encounter_defend_1_start");
+        textboxTrigger.triggerTextbox();
+    }
+
     public override void executeEncounter() {
         GameManager gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         // weapons skill check
-        if (gameManager.weaponPow == weaponsNeeded) {
-            // Good
+        if (gameManager.weaponPow >= weaponsNeeded) {
+            textboxTrigger.loadTxtFile("encounter_defend_1_pass");
         } else if (gameManager.weaponPow < weaponsNeeded) {
             gameManager.damageInc((weaponsNeeded - gameManager.weaponPow) * damagePerCrew);
             gameManager.healthInc(-(weaponsNeeded - gameManager.weaponPow) * healthPerCrew);
+            textboxTrigger.loadTxtFile("encounter_defend_1_fail");
         }
 
-        gameManager.startTurn();
+        textboxManager.setPostFunction(gameManager.startTurn);
+        textboxTrigger.triggerTextbox();
     }
 }
