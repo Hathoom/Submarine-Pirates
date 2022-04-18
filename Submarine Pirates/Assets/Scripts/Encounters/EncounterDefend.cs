@@ -5,43 +5,67 @@ using UnityEngine;
 public class EncounterDefend : Encounter
 {
     public int weaponsNeeded;
-    public int damagePerCrew;
-    public int healthPerCrew;
+    public int hullDamage;
+    public int healthDamage;
+
+    public int additionalPunishment;
+    public int additionalPunishmentType;
 
     public bool worsePunishment = false;
     public int worseWeaponsNeeded;
-    public int worseDamagePC;
-    public int worseHealthPC;
+    public int worseHDamage;
+    public int worseHealth;
 
     //constructor
-    public EncounterDefend(string encounterName, int weaponsNeeded, int damagePerCrew, int healthPerCrew) {
-        
-        // 0 - Surface Merchant
-        // 1 - Fishing Vessal
-        // 2 - ??
-        // 3 - Scrappers
-        // 4 - Davey Jones
+    public EncounterDefend(string encounterName, int weaponsNeeded, int hullDamage, 
+                            int healthDamage, int additionalPunishment, 
+                            int additionalPunishmentType) {
+        // rewardtype:
+        // 0: nothing
+        // 1: food
+        // 2: fuel
+        // 3: gold
+        // 4: crew
+        // 5: make crew sick
+        // 6: happiness
+        // 7: hull damage
+        // 8: ship health
         this.weaponsNeeded = weaponsNeeded;
-        this.damagePerCrew = damagePerCrew;
-        this.healthPerCrew = healthPerCrew;
+        this.hullDamage = hullDamage;
+        this.healthDamage = healthDamage;
+        
+        this.additionalPunishment = additionalPunishment;
+        this.additionalPunishmentType = additionalPunishmentType;
     }
 
         // 2 potential punishments constructor
-        public EncounterDefend(string encounterName, int weaponsNeeded, int damagePerCrew, int healthPerCrew, int worseWeaponsNeeded, int worseDamagePC, int worseHealthPC) {
+        public EncounterDefend(string encounterName, int weaponsNeeded, 
+                                int hullDamage, int healthDamage, 
+                                int additionalPunishment, int additionalPunishmentType, 
+                                int worseWeaponsNeeded, int worseHDamage, 
+                                int worseHealth) {
         
-        // 0 - Surface Merchant
-        // 1 - Fishing Vessal
-        // 2 - ??
-        // 3 - Scrappers
-        // 4 - Davey Jones
+        // rewardtype:
+        // 0: nothing
+        // 1: food
+        // 2: fuel
+        // 3: gold
+        // 4: crew
+        // 5: make crew sick
+        // 6: happiness
+        // 7: hull damage
+        // 8: ship health
         this.weaponsNeeded = weaponsNeeded;
-        this.damagePerCrew = damagePerCrew;
-        this.healthPerCrew = healthPerCrew;
+        this.hullDamage = hullDamage;
+        this.healthDamage = healthDamage;
 
         this.worsePunishment = true;
         this.worseWeaponsNeeded = worseWeaponsNeeded;
-        this.worseDamagePC = worseDamagePC;
-        this.worseHealthPC = worseHealthPC;
+        this.worseHDamage = worseHDamage;
+        this.worseHealth = worseHealth;
+
+        this.additionalPunishment = additionalPunishment;
+        this.additionalPunishmentType = additionalPunishmentType;
     }
 
     // Runs the script for the start of the encounter
@@ -55,17 +79,107 @@ public class EncounterDefend : Encounter
     public override void executeEncounter() {
         GameManager gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
-        // weapons skill check
-        if (gameManager.weaponPow >= weaponsNeeded) {
-            textboxTrigger.loadTxtFile("encounter_defend_1_pass");
-        } 
-        else if (gameManager.weaponPow < weaponsNeeded) {
-            gameManager.damageInc((weaponsNeeded - gameManager.weaponPow) * damagePerCrew);
-            gameManager.healthInc(-(weaponsNeeded - gameManager.weaponPow) * healthPerCrew);
-            textboxTrigger.loadTxtFile("encounter_defend_1_fail");
+        // if there is only 1 regular punishment
+        if (worseWeaponsNeeded == 0)
+        {
+            // weapons skill check
+            if (gameManager.weaponPow >= weaponsNeeded) {
+                // Passed Defend
+                Debug.Log("Defend Passed");
+            } 
+            else if (gameManager.weaponPow < weaponsNeeded) {
+                gameManager.damageInc(hullDamage);
+                gameManager.healthInc(-(healthDamage));
+                if (additionalPunishmentType != 0)
+                {
+                    AdditionalPunishment(additionalPunishment, additionalPunishmentType);
+                }
+                //textboxTrigger.loadTxtFile("encounter_defend_1_fail");
+                Debug.Log("Defend Failed Damage taken");
+            }
+            textboxManager.setPostFunction(gameManager.startTurn);
+            textboxTrigger.triggerTextbox();
         }
+        // multiple levels of punishment
+        else
+        {
+            // weapons skill check
+            if (gameManager.weaponPow >= weaponsNeeded) {
+                // Passed Defend
+                Debug.Log("Defend Passed");
+            } 
+            // first tier failed
+            else if (gameManager.weaponPow < weaponsNeeded && gameManager.weaponPow >= worseWeaponsNeeded) {
+                gameManager.damageInc(hullDamage);
+                gameManager.healthInc(-(healthDamage));
+                //textboxTrigger.loadTxtFile("encounter_defend_1_fail");
+                Debug.Log("Defend partially failed");
+            }
+            else if (gameManager.weaponPow < worseWeaponsNeeded)
+            {
+                gameManager.damageInc(worseHDamage);
+                gameManager.healthInc(-(worseHealth));
+                if (additionalPunishmentType != 0)
+                {
+                    AdditionalPunishment(additionalPunishment, additionalPunishmentType);
+                }
+                Debug.Log("Defense lost bad");
+            }
+            textboxManager.setPostFunction(gameManager.startTurn);
+            textboxTrigger.triggerTextbox();
+        }
+    }
 
-        textboxManager.setPostFunction(gameManager.startTurn);
-        textboxTrigger.triggerTextbox();
+    public void AdditionalPunishment(int num, int type)
+    {
+        if (type == 0)
+        {
+            //nothing happens
+        }
+        else if (type == 1)
+        {
+            gameManager.foodInc(num);
+        }
+        else if (type == 2)
+        {
+            gameManager.fuelInc(num);
+        }
+        else if (type == 3)
+        {
+            gameManager.goldInc(num);
+        }
+        else if (type == 4)
+        {
+            gameManager.usableCrewInc(num);
+        }
+        else if (type == 5)
+        {
+            if (gameManager.usableCrew == 0)
+            {
+                Debug.Log("No more crew can get sick");
+            }
+            else if (gameManager.usableCrew < num)
+            {
+                num = num - gameManager.usableCrew;
+            }
+            gameManager.usableCrewInc(-num);
+            gameManager.maxSickInc(num);
+        }
+        else if (type == 6)
+        {
+            gameManager.happinessInc(num);
+        }
+        else if (type == 7)
+        {
+            gameManager.damageInc(num);
+        }
+        else if (type == 8)
+        {
+            gameManager.healthInc(num);
+        }
+        else
+        {
+            Debug.Log("ERROR WRONG REWARD TYPE ENTERED IN " + encounterName + " encounter!");
+        }
     }
 }

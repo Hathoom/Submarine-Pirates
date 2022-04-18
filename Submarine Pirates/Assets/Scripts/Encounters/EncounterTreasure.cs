@@ -22,6 +22,8 @@ public class EncounterTreasure : Encounter
         // 4: crew
         // 5: make crew sick
         // 6: happiness
+        // 7: hull damage
+        // 8: ship health
         this.encounterName = encounterName;
         this.reward = reward;
         this.reward = rewardType;

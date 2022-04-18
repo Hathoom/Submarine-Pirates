@@ -15,9 +15,23 @@ public class EncounterHappiness : Encounter
     public int successRewardType;
     public int exceptionalRewardType;
 
+    public int additionalfailPenalty;
+    public int additionalfailPenaltyType;
+
+    public int additionalSuccessReward;
+    public int additionalSuccessRewardType;
+
+    public int additionalExceptionalReward;
+    public int additionalExceptionalRewardType;
+
     //constructor
-    public EncounterHappiness(string encounterName, int failPenalty, int failPenaltyType, int successReward, int successRewardType,
-                                                int exceptionalReward, int exceptionalRewardType) 
+    public EncounterHappiness(string encounterName, int failPenalty, 
+                                int failPenaltyType, int additionalfailPenalty,
+                                int additionalfailPenaltyType, int successReward, 
+                                int successRewardType, int additionalSuccessReward,
+                                int additionalSuccessRewardType, int exceptionalReward, 
+                                int exceptionalRewardType, int additionalExceptionalReward,
+                                int additionalExceptionalRewardType) 
     {
         // rewardtype:
         // 0: nothing
@@ -39,6 +53,15 @@ public class EncounterHappiness : Encounter
 
         this.exceptionalReward = exceptionalReward;
         this.exceptionalRewardType = exceptionalRewardType;
+
+        this.additionalfailPenalty = additionalfailPenalty;
+        this.additionalfailPenaltyType = additionalfailPenaltyType;
+
+        this.additionalSuccessReward = additionalSuccessReward;
+        this.additionalSuccessRewardType = additionalSuccessRewardType;
+
+        this.additionalExceptionalReward = additionalExceptionalReward;
+        this.additionalExceptionalRewardType = additionalExceptionalRewardType;
     }
 
     public override void executeEncounter() {
@@ -50,163 +73,74 @@ public class EncounterHappiness : Encounter
         // fail test
         if(happiness < 50)
         {
-            if (failPenaltyType == 0)
-            {
-                //nothing happens
-            }
-            else if (failPenaltyType == 1)
-            {
-                gameManager.foodInc(failPenalty);
-            }
-            else if (failPenaltyType == 2)
-            {
-                gameManager.fuelInc(failPenalty);
-            }
-            else if (failPenaltyType == 3)
-            {
-                gameManager.goldInc(failPenalty);
-            }
-            else if (failPenaltyType == 4)
-            {
-                gameManager.usableCrewInc(failPenalty);
-            }
-            else if (failPenaltyType == 5)
-            {
-                if (gameManager.usableCrew == 0)
-                {
-                    Debug.Log("No more crew can get sick");
-                }
-                else if (gameManager.usableCrew < failPenalty)
-                {
-                    failPenalty = failPenalty - gameManager.usableCrew;
-                }
-                gameManager.usableCrewInc(-failPenalty);
-                gameManager.maxSickInc(failPenalty);
-            }
-            else if (failPenaltyType == 6)
-            {
-                gameManager.happinessInc(failPenalty);
-            }
-            else if (failPenaltyType == 7)
-            {
-                gameManager.damageInc(failPenalty);
-            }
-            else if (failPenaltyType == 8)
-            {
-                gameManager.healthInc(failPenalty);
-            }
-            else
-            {
-                Debug.Log("ERROR WRONG REWARD TYPE ENTERED IN " + encounterName + " encounter!");
-            }
+            AlterValue(failPenalty, failPenaltyType);
+            AlterValue(additionalfailPenalty, additionalfailPenaltyType);
         }
         // pass test
         else if (happiness >= 50 && happiness <= 75)
         {
-            if (successRewardType == 0)
-            {
-                //nothing happens
-            }
-            else if (successRewardType == 1)
-            {
-                gameManager.foodInc(successReward);
-            }
-            else if (successRewardType == 2)
-            {
-                gameManager.fuelInc(successReward);
-            }
-            else if (successRewardType == 3)
-            {
-                gameManager.goldInc(successReward);
-            }
-            else if (successRewardType == 4)
-            {
-                gameManager.usableCrewInc(successReward);
-            }
-            else if (successRewardType == 5)
-            {
-                if (gameManager.usableCrew == 0)
-                {
-                    Debug.Log("No more crew can get sick");
-                }
-                else if (gameManager.usableCrew < successReward)
-                {
-                    successReward = successReward - gameManager.usableCrew;
-                }
-                gameManager.usableCrewInc(-successReward);
-                gameManager.maxSickInc(successReward);
-            }
-            else if (successRewardType == 6)
-            {
-                gameManager.happinessInc(successReward);
-            }
-            else if (successRewardType == 7)
-            {
-                gameManager.damageInc(successReward);
-            }
-            else if (successRewardType == 8)
-            {
-                gameManager.healthInc(successReward);
-            }
-            else
-            {
-                Debug.Log("ERROR WRONG REWARD TYPE ENTERED IN " + encounterName + " encounter!");
-            }
+            AlterValue(successReward, successRewardType);
+            AlterValue(additionalSuccessRewardType, additionalSuccessRewardType);
         }
         // exceptional
         else if (happiness > 75)
         {
-            if (exceptionalRewardType == 0)
-            {
-                //nothing happens
-            }
-            else if (exceptionalRewardType == 1)
-            {
-                gameManager.foodInc(exceptionalReward);
-            }
-            else if (exceptionalRewardType == 2)
-            {
-                gameManager.fuelInc(exceptionalReward);
-            }
-            else if (exceptionalRewardType == 3)
-            {
-                gameManager.goldInc(exceptionalReward);
-            }
-            else if (exceptionalRewardType == 4)
-            {
-                gameManager.usableCrewInc(exceptionalReward);
-            }
-            else if (exceptionalRewardType == 5)
-            {
-                if (gameManager.usableCrew == 0)
-                {
-                    Debug.Log("No more crew can get sick");
-                }
-                else if (gameManager.usableCrew < exceptionalReward)
-                {
-                    exceptionalReward = exceptionalReward - gameManager.usableCrew;
-                }
-                gameManager.usableCrewInc(-exceptionalReward);
-                gameManager.maxSickInc(exceptionalReward);
-            }
-            else if (exceptionalRewardType == 6)
-            {
-                gameManager.happinessInc(exceptionalReward);
-            }
-            else if (exceptionalRewardType == 7)
-            {
-                gameManager.damageInc(exceptionalReward);
-            }
-            else if (exceptionalRewardType == 8)
-            {
-                gameManager.healthInc(exceptionalReward);
-            }
-            else
-            {
-                Debug.Log("ERROR WRONG REWARD TYPE ENTERED IN " + encounterName + " encounter!");
-            }
+            AlterValue(exceptionalReward, exceptionalRewardType);
+            AlterValue(additionalExceptionalReward, additionalExceptionalRewardType);
         }
-
         gameManager.startTurn();
+    }
+
+    public void AlterValue(int num, int type)
+    {
+        if (type == 0)
+        {
+            //nothing happens
+        }
+        else if (type == 1)
+        {
+            gameManager.foodInc(num);
+        }
+        else if (type == 2)
+        {
+            gameManager.fuelInc(num);
+        }
+        else if (type == 3)
+        {
+            gameManager.goldInc(num);
+        }
+        else if (type == 4)
+        {
+            gameManager.usableCrewInc(num);
+        }
+        else if (type == 5)
+        {
+            if (gameManager.usableCrew == 0)
+            {
+                Debug.Log("No more crew can get sick");
+            }
+            else if (gameManager.usableCrew < num)
+            {
+                num = num - gameManager.usableCrew;
+            }
+            gameManager.usableCrewInc(-num);
+            gameManager.maxSickInc(num);
+        }
+        else if (type == 6)
+        {
+            gameManager.happinessInc(num);
+        }
+        else if (type == 7)
+        {
+            gameManager.damageInc(num);
+        }
+        else if (type == 8)
+        {
+            gameManager.healthInc(num);
+        }
+        else
+        {
+            Debug.Log("ERROR WRONG REWARD TYPE ENTERED IN " + encounterName + " encounter!");
+        }
     }
 }
