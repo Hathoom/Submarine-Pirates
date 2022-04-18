@@ -54,6 +54,8 @@ public class GameManager : MonoBehaviour
     public Slider happinessSlider;
     public Slider healthSlider;
     public TextMeshProUGUI crewCount;
+    public TextMeshProUGUI sickCrewCount;
+    public TextMeshProUGUI govTurnsLeft;
 
     // Textbox
     public TextboxTrigger textboxTrigger;
@@ -95,6 +97,8 @@ public class GameManager : MonoBehaviour
         happinessSlider.value = happiness;
         healthSlider.value = health;
         crewCount.text = "x" + crew;
+        sickCrewCount.text = "x" + crewSick;
+        govTurnsLeft.text = "Turns Left: " + govHuntTurns;
     }
     public void crewReset()
     {
@@ -140,8 +144,17 @@ public class GameManager : MonoBehaviour
             Debug.Log("You ended the turn without a proper bridge staff!");
         }
 
-
         gamestate = "work";
+
+        // Kill existing sick crewmembers
+        // this is here because rooms incrementing values can cause crewmembers to get sick
+        // as well as events making crewmembers sick
+        turnEndKillSick();
+
+        // decriment happiness based on number of sick crewmembers remaining
+        // done before any new crewmembers could become sick
+        happinessInc(-maxSick);
+
         // CREWMATES DO WORK
 
         barracks.endTurn();
@@ -157,28 +170,33 @@ public class GameManager : MonoBehaviour
         crewReset();
         
         // Crewmates don't have enough to eat
-        if (food >= usableCrew) {
+        if (food >= usableCrew + maxSick) {
             textboxTrigger.loadTxtFile("food_pass");
         } else {
             textboxTrigger.loadTxtFile("food_fail");
         }
         // Crew eats food
-        foodInc(-usableCrew);
+        foodInc(-usableCrew - maxSick);
         // Decreases health based on damage
         healthInc(-damage);
 
         //Check for starving
         starveCheck();
 
-        //Kill sick crew
-        turnEndKillSick();
-
         // inform user how much crew they lost and reset lost value
         Debug.Log("You lost: " + crewDiedThisTurn + " CrewMembers!");
         crewDiedThisTurn = 0;
 
+        //decriment the number of turns you have to run from government
+        govHuntTurnsInc(-1);
+
+        //check if the level needs to be changed
+        setLevel();
+
+        // Generate encounter
         textboxManager.setPostFunction(encounterManager.generateEncounter);
 
+        // Encounter a death state if one of the death states is met
         // DEATH STATES
 
         if (happiness <= 0)
@@ -214,6 +232,8 @@ public class GameManager : MonoBehaviour
             textboxTrigger.loadTxtFile("death_gov");
             textboxManager.setPostFunction(youLose);
         }
+
+        // Activate a normal encounter
         textboxTrigger.triggerTextbox();
     }
 
@@ -231,6 +251,11 @@ public class GameManager : MonoBehaviour
     //check for starving
     public void starveCheck()
     {
+        // lose happiness
+        if (food < 0)
+        {
+            happinessInc(-5);
+        }
         if(food <= -10)
         {
             //make a crewmember sick
@@ -245,13 +270,12 @@ public class GameManager : MonoBehaviour
             //make a sick crewmember or regular crewmember dead.
             if (maxSick > 1)
             {
-                maxSickInc(-1);
+                killCrewMember(1);
             }
             else
             {
-                usableCrewInc(-1);
+                killCrewMember(0);
             }
-            maxCrewInc(-1);
             food = -10;
         }
     }
@@ -260,21 +284,19 @@ public class GameManager : MonoBehaviour
     public void turnEndKillSick()
     {
         int unsafeSickCrew = maxSick - medbay.GetSickCrew();
-        int crewDeaths = 0;
         if (unsafeSickCrew > 0)
         {
             for (int i = 0; i < unsafeSickCrew; i++)
             {
                 if(Random.Range(1, 101) <= 25)
                 {
-                    maxSickInc(-1);
-                    crewDeaths++;
+                    killCrewMember(1);
                 }
             }
         }
     }
 
-    // kill crew member
+    // kill a crew member
     public void killCrewMember(int type)
     {
         // if type == 0 healthy crewmember
@@ -283,18 +305,19 @@ public class GameManager : MonoBehaviour
         if (type == 0)
         {
             usableCrewInc(-1);
+            happinessInc(-10);
         }
         else if (type == 1)
         {
             maxSickInc(-1);
+            happinessInc(-5);
         }
-
         crewDiedThisTurnInc(1);
     }
 
 
 
-    //incriments
+    // incrimenters
     public void happinessInc(int amount)
     {
         happiness += amount;
@@ -368,12 +391,12 @@ public class GameManager : MonoBehaviour
         amount = amount * depthDir;
 
         //increase depth movement if emergencyLift is active
-        amount = amount * 2;
+        if (emergencyLift)
+        {
+            amount = amount * 2;
+        }
     
         depth += amount;
-
-        //decriment the number of turns you have to run from government
-        govHuntTurnsInc(-1);
 
         //if you go fast crew may get sick
         if (usableCrew > 0)
@@ -382,8 +405,11 @@ public class GameManager : MonoBehaviour
             {
                 if (Random.Range(1, 101) <= 33)
                 {
-                    usableCrewInc(-1);
-                    maxSickInc(+1);
+                    if (usableCrew > 0)
+                    {
+                        usableCrewInc(-1);
+                        maxSickInc(+1);
+                    }
                 }
             }
             else if (amount >= 60 && amount < 80 || amount > -80 && amount <=-60)
@@ -392,41 +418,15 @@ public class GameManager : MonoBehaviour
                 {
                     if (Random.Range(1, 101) <= 66)
                     {
-                        usableCrewInc(-1);
-                        maxSickInc(+1);
+                        if (usableCrew > 0)
+                        {
+                            usableCrewInc(-1);
+                            maxSickInc(+1);
+                        }
                     }
                 }
             }
         }
-
-        //if you should be at a new level, then change the level you are at
-        if (depth == 0) level = 0;
-        else if (depth > 0 && depth < 100) level = 1;
-        else if (depth >= 100 && depth <= 199)
-        {
-            level = 2;
-            if(!hasReachedLevel2)
-            {
-                hasReachedLevel2 = true;
-                govHuntTurns = 10;
-            }
-        }
-        else if (depth >= 200 && depth <= 299)
-        {
-            level = 3;
-            if(!hasReachedLevel3)
-            {
-                hasReachedLevel3 = true;
-                govHuntTurns = 15;
-            }
-        }
-        else if (depth >= 300)
-        {
-            level = 4;
-            // counter the above reduction, and increase # of free turns by 1
-            govHuntTurnsInc(2);
-        }
-
     }
 
     public void goldInc(int amount)
@@ -460,6 +460,43 @@ public class GameManager : MonoBehaviour
     public void setEmergencyLift(bool value)
     {
         emergencyLift = value;
+
+        // if you activate the emergency lift you should always go up
+        if (emergencyLift)
+        {
+            setDepthDir(-1);
+        }
+    }
+
+    public void setLevel()
+    {
+        //if you are at a new level, then change the level you are at
+        if (depth <= 0) level = 0;
+        else if (depth > 0 && depth < 100) level = 1;
+        else if (depth >= 100 && depth <= 199)
+        {
+            level = 2;
+            if(!hasReachedLevel2)
+            {
+                hasReachedLevel2 = true;
+                govHuntTurns = 10;
+            }
+        }
+        else if (depth >= 200 && depth <= 299)
+        {
+            level = 3;
+            if(!hasReachedLevel3)
+            {
+                hasReachedLevel3 = true;
+                govHuntTurns = 15;
+            }
+        }
+        else if (depth >= 300)
+        {
+            level = 4;
+            // counter the above reduction, and increase # of free turns by 1
+            govHuntTurnsInc(2);
+        }
     }
 
     // gamemanger getters

@@ -152,18 +152,40 @@ public class EncounterDefend : Encounter
         }
         else if (type == 4)
         {
-            gameManager.usableCrewInc(num);
+            // add crew
+            if (num > 0)
+            {
+                if (gameManager.maxSick + gameManager.usableCrew > gameManager.maxCrew)
+                {
+                    Debug.Log("You are at max crew: no reward");
+                }
+                else
+                {
+                    gameManager.usableCrewInc(num);
+                }
+            }
+            // kill crew
+            else if (num < 0)
+            {
+                for (int i = 0; i > num; i = i - 1)
+                {
+                    gameManager.killCrewMember(0);
+                }
+            }
         }
         else if (type == 5)
         {
+            // no crew to make sick
             if (gameManager.usableCrew == 0)
             {
                 Debug.Log("No more crew can get sick");
             }
+            // not enough crew to make sick
             else if (gameManager.usableCrew < num)
             {
                 num = num - gameManager.usableCrew;
             }
+            // reduce usuable crew and make crew members sick
             gameManager.usableCrewInc(-num);
             gameManager.maxSickInc(num);
         }
