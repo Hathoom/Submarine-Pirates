@@ -21,6 +21,7 @@ public class EncounterTreasure : Encounter
         // 3: gold
         // 4: crew
         // 5: make crew sick
+        // 6: happiness
         this.encounterName = encounterName;
         this.reward = reward;
         this.reward = rewardType;
@@ -64,6 +65,10 @@ public class EncounterTreasure : Encounter
             }
             gameManager.usableCrewInc(-reward);
             gameManager.maxSickInc(reward);
+        }
+        else if (rewardType == 6)
+        {
+            gameManager.happinessInc(reward);
         }
         else
         {

@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EncounterAttack : Encounter
+public class EncounterRival : Encounter
 {
     public string encounterName;
-    public int weaponsNeeded;
+    public int weaponsDefend;
+
+    public int weaponsAttack;
 
     public int reward;
 
     public int rewardType;
 
+    public int damagePerCrew;
+    public int healthPerCrew;
+
     //constructor
-    public EncounterAttack(string encounterName, int weaponsNeeded, int reward, int rewardType) {
+    public EncounterRival(string encounterName, int weaponsDefend, int weaponsAttack, int reward, int rewardType, int damagePerCrew, int healthPerCrew) {
         
         // rewardtype:
         // 0: nothing
@@ -23,9 +28,13 @@ public class EncounterAttack : Encounter
         // 5: make crew sick
         // 6: happiness
         this.encounterName = encounterName;
-        this.weaponsNeeded = weaponsNeeded;
+        this.weaponsDefend = weaponsDefend;
+        this.weaponsAttack = weaponsAttack;
         this.reward = reward;
         this.reward = rewardType;
+
+        this.damagePerCrew = damagePerCrew;
+        this.healthPerCrew = healthPerCrew;
     }
 
 
@@ -40,8 +49,8 @@ public class EncounterAttack : Encounter
         GameManager gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         // weapons skill check
-        // pass the weapons skill check
-        if (gameManager.weaponPow >= weaponsNeeded) {
+        // pass the attack check
+        if (gameManager.weaponPow >= weaponsAttack) {
             if (rewardType == 0)
             {
                 
@@ -91,10 +100,13 @@ public class EncounterAttack : Encounter
                 Debug.Log("ERROR WRONG REWARD TYPE ENTERED IN " + encounterName + " encounter!");
             }
         }
-        //fail the weapons skill check 
-        else if (gameManager.weaponPow < weaponsNeeded) {
-            //No punishment
-            Debug.Log("Attack Failure text");
+        // succeed in defense
+        else if (gameManager.weaponPow <= weaponsAttack && gameManager.weaponPow >= weaponsDefend) {
+            Debug.Log("Successful rival Defend");
+        }
+        else if (gameManager.weaponPow <= weaponsDefend) {
+            gameManager.damageInc((weaponsDefend - gameManager.weaponPow) * damagePerCrew);
+            gameManager.healthInc(-(weaponsDefend - gameManager.weaponPow) * healthPerCrew);
         }
 
         gameManager.startTurn();
