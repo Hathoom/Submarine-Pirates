@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         mainCamera = Camera.main;
-        StartSetup();
+        SetupStartup();
     }
 
     // Update is called once per frame
@@ -514,7 +514,7 @@ public class GameManager : MonoBehaviour
         return damage;
     }
 
-    public void StartSetup()
+    public void SetupStartup()
     {
         happiness = 50;
         health = 100;
@@ -524,8 +524,7 @@ public class GameManager : MonoBehaviour
         usableCrew = 10;
         crew = usableCrew;
         maxSick = 0;
-        crewSick = 0;
-        crewDiedThisTurn = 0;
+        crewSick = maxSick;
         damage = 0;
         depth = 0;
         depthDir = 0;
@@ -534,6 +533,7 @@ public class GameManager : MonoBehaviour
         govHuntTurns = 6;
         hasReachedLevel2 = false;
         hasReachedLevel3 = false;
+        emergencyLift = false;
         weaponPow = 0;
     }
 }
