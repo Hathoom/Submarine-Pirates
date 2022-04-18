@@ -30,6 +30,7 @@ public class EncounterDefend : Encounter
         // 6: happiness
         // 7: hull damage
         // 8: ship health
+        this.encounterName = encounterName;
         this.weaponsNeeded = weaponsNeeded;
         this.hullDamage = hullDamage;
         this.healthDamage = healthDamage;
@@ -55,6 +56,7 @@ public class EncounterDefend : Encounter
         // 6: happiness
         // 7: hull damage
         // 8: ship health
+        this.encounterName = encounterName;
         this.weaponsNeeded = weaponsNeeded;
         this.hullDamage = hullDamage;
         this.healthDamage = healthDamage;

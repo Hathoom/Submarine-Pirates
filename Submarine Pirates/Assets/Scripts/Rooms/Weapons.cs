@@ -6,18 +6,6 @@ public class Weapons : Room
 {
     public int weaponPow = 0;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public override void endTurn()
     {
 
@@ -38,5 +26,9 @@ public class Weapons : Room
         weaponPow = 0;
         
         base.endTurn();
+    }
+
+    void SetCrewNeeded() {
+        crewNeeded = gameManager.level;
     }
 }

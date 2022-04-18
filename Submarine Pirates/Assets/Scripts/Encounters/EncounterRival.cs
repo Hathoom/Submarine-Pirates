@@ -66,6 +66,7 @@ public class EncounterRival : Encounter
         // 6: happiness
         // 7: hull damage
         // 8: ship health
+        this.encounterName = encounterName;
         this.weaponsAttack = weaponsAttack;
         this.weaponsDefend = weaponsDefend;
 

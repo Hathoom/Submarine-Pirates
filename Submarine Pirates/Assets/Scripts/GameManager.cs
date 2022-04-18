@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
         damageTxt.text = damage.ToString();
         fuelTxt.text = fuel.ToString();
         goldTxt.text = "Gold: " + gold;
-        depthTxt.text = "Depth: " + depth;
+        depthTxt.text = "Depth: " + depth + "0";
         happinessSlider.value = happiness;
         healthSlider.value = health;
         crewCount.text = "x" + crew;
@@ -177,38 +177,43 @@ public class GameManager : MonoBehaviour
         Debug.Log("You lost: " + crewDiedThisTurn + " CrewMembers!");
         crewDiedThisTurn = 0;
 
+        textboxManager.setPostFunction(encounterManager.generateEncounter);
+
         // DEATH STATES
 
         if (happiness <= 0)
         {
             Debug.Log("Crew Mutinies! Game over.");
-            youLose();
+            textboxTrigger.loadTxtFile("death_mutiny");
+            textboxManager.setPostFunction(youLose);
         }
 
         if (health <= 0)
         {
             Debug.Log("Ship is destroyed");
-            youLose();
+            textboxTrigger.loadTxtFile("death_health");
+            textboxManager.setPostFunction(youLose);
         }
 
         if (crew <= 0)
         {
             Debug.Log("All your crew is dead, you are stuck in the ocean");
-            youLose();
+            textboxTrigger.loadTxtFile("death_crew_gone");
+            textboxManager.setPostFunction(youLose);
         }
 
         if (fuel <= 0) {
             Debug.Log("You have no more fuel and can't move game over.");
-            youLose();
+            textboxTrigger.loadTxtFile("death_fuel");
+            textboxManager.setPostFunction(youLose);
         }
 
         if (govHuntTurns <= 0)
         {
             Debug.Log("The Government has found you");
-            youLose();
+            textboxTrigger.loadTxtFile("death_gov");
+            textboxManager.setPostFunction(youLose);
         }
-        
-        textboxManager.setPostFunction(encounterManager.generateEncounter);
         textboxTrigger.triggerTextbox();
     }
 

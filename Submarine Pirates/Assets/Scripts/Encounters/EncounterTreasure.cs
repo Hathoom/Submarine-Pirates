@@ -26,7 +26,7 @@ public class EncounterTreasure : Encounter
         // 8: ship health
         this.encounterName = encounterName;
         this.reward = reward;
-        this.reward = rewardType;
+        this.rewardType = rewardType;
     }
 
     public override void startEncounter() {
@@ -36,6 +36,7 @@ public class EncounterTreasure : Encounter
     }
 
     public override void executeEncounter() {
+        Debug.Log("Treasure Encounte Executed");
         GameManager gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         if (rewardType == 1)
