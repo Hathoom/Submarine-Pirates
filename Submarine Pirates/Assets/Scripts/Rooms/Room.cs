@@ -29,8 +29,9 @@ public abstract class Room : MonoBehaviour
 
     private GameObject OtherObject;
 
-    void Start() {
+    void Update() {
         updateCrewTxt();
+        SetCrewNeeded();
     }
 
     public void updateCrewTxt() {
@@ -185,5 +186,9 @@ public abstract class Room : MonoBehaviour
     public virtual GameManager GetGameManager()
     {
         return gameManager;
+    }
+
+    public virtual void SetCrewNeeded() {
+
     }
 }

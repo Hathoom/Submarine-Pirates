@@ -6,21 +6,6 @@ using UnityEngine;
 
 public class Medbay : Room
 {
-    // public int sickCrew;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
     public override void endTurn()
     {
 
@@ -43,5 +28,9 @@ public class Medbay : Room
         }
 
         base.endTurn();
+    }
+
+    public override void SetCrewNeeded() {
+        crewNeeded = gameManager.maxSick;
     }
 }

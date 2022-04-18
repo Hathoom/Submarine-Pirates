@@ -5,6 +5,8 @@ using UnityEngine;
 public class ShopManager : MonoBehaviour
 {
     public GameObject surfaceShop;
+    public GameObject shallowsShop;
+    public GameObject deepSeaShop;
     public GameManager gameManager;
     public Canvas shopCanvas;
     public Transform ShopSpawnTransform;
@@ -29,6 +31,16 @@ public class ShopManager : MonoBehaviour
     public void startSurfaceShop() {
         toggleShopUI(true);
         Instantiate(surfaceShop, transform);
+    }
+
+    public void startShallowsShop() {
+        toggleShopUI(true);
+        Instantiate(shallowsShop, transform);
+    }
+
+    public void startDeepSeaShop() {
+        toggleShopUI(true);
+        Instantiate(deepSeaShop, transform);
     }
 
     public void endShop() {

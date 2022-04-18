@@ -77,6 +77,8 @@ public class EncounterManager : MonoBehaviour
                 break;
         }
 
+        Debug.Log("Starting " + encounter.encounterName);
+
         encounter.startEncounter();
     }
 }

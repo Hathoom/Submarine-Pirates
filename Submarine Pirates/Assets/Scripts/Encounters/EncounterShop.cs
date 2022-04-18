@@ -30,6 +30,14 @@ public class EncounterShop : Encounter
             case 0:
                 shopManager.startSurfaceShop();
                 break;
+            
+            case 1:
+                shopManager.startShallowsShop();
+                break;
+            
+            case 2:
+                shopManager.startDeepSeaShop();
+                break;
         }
     }
 

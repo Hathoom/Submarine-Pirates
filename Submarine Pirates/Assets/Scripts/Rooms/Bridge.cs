@@ -13,14 +13,6 @@ public class Bridge : Room
         SetCrewNeeded();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-
-
     public override void endTurn()
     {
         int level = gameManager.getLevel();
@@ -51,9 +43,10 @@ public class Bridge : Room
         return true;
     }
 
-    public void SetCrewNeeded()
+    public override void SetCrewNeeded()
     {
         int num = gameManager.getLevel() - 1;
+        if (num < 0) num = 0;
         int damage = gameManager.getDamage();
 
         //Debug.Log("Damage / 5: " + damage / 5);
@@ -71,7 +64,7 @@ public class Bridge : Room
 
         crewNeeded = num;
 
-        Debug.Log("CrewNeeded: " + crewNeeded);
+        //Debug.Log("CrewNeeded: " + crewNeeded);
     }
 
     public void ActivateEmergencyLift()
