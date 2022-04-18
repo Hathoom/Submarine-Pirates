@@ -48,7 +48,7 @@ public class EncounterDefend : Encounter
     public override void startEncounter() {
         Debug.Log("Defend encounter started");
         textboxManager.setPostFunction(executeEncounter);
-        textboxTrigger.loadTxtFile("encounter_defend_1_start");
+        textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/start");
         textboxTrigger.triggerTextbox();
     }
 
@@ -57,12 +57,12 @@ public class EncounterDefend : Encounter
 
         // weapons skill check
         if (gameManager.weaponPow >= weaponsNeeded) {
-            textboxTrigger.loadTxtFile("encounter_defend_1_pass");
+            textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/pass");
         } 
         else if (gameManager.weaponPow < weaponsNeeded) {
             gameManager.damageInc((weaponsNeeded - gameManager.weaponPow) * damagePerCrew);
             gameManager.healthInc(-(weaponsNeeded - gameManager.weaponPow) * healthPerCrew);
-            textboxTrigger.loadTxtFile("encounter_defend_1_fail");
+            textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/fail");
         }
 
         textboxManager.setPostFunction(gameManager.startTurn);

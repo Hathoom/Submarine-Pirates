@@ -41,6 +41,12 @@ public class EncounterHappiness : Encounter
         this.exceptionalRewardType = exceptionalRewardType;
     }
 
+    public override void startEncounter() {
+        textboxManager.setPostFunction(executeEncounter);
+        textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/start");
+        textboxTrigger.triggerTextbox();
+    }
+
     public override void executeEncounter() {
         GameManager gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
@@ -99,6 +105,7 @@ public class EncounterHappiness : Encounter
             {
                 Debug.Log("ERROR WRONG REWARD TYPE ENTERED IN " + encounterName + " encounter!");
             }
+            textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/fail");
         }
         // pass test
         else if (happiness >= 50 && happiness <= 75)
@@ -152,6 +159,7 @@ public class EncounterHappiness : Encounter
             {
                 Debug.Log("ERROR WRONG REWARD TYPE ENTERED IN " + encounterName + " encounter!");
             }
+            textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/pass");
         }
         // exceptional
         else if (happiness > 75)
@@ -205,8 +213,10 @@ public class EncounterHappiness : Encounter
             {
                 Debug.Log("ERROR WRONG REWARD TYPE ENTERED IN " + encounterName + " encounter!");
             }
+            textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/extra");
         }
 
-        gameManager.startTurn();
+        textboxManager.setPostFunction(gameManager.startTurn);
+        textboxTrigger.triggerTextbox();
     }
 }
