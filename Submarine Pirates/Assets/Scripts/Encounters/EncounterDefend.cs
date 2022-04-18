@@ -72,7 +72,7 @@ public class EncounterDefend : Encounter
     public override void startEncounter() {
         Debug.Log("Defend encounter started");
         textboxManager.setPostFunction(executeEncounter);
-        textboxTrigger.loadTxtFile("encounter_defend_1_start");
+        textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/start");
         textboxTrigger.triggerTextbox();
     }
 
@@ -85,7 +85,7 @@ public class EncounterDefend : Encounter
             // weapons skill check
             if (gameManager.weaponPow >= weaponsNeeded) {
                 // Passed Defend
-                Debug.Log("Defend Passed");
+                textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/pass");
             } 
             else if (gameManager.weaponPow < weaponsNeeded) {
                 gameManager.damageInc(hullDamage);
@@ -95,7 +95,7 @@ public class EncounterDefend : Encounter
                     AdditionalPunishment(additionalPunishment, additionalPunishmentType);
                 }
                 //textboxTrigger.loadTxtFile("encounter_defend_1_fail");
-                Debug.Log("Defend Failed Damage taken");
+                textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/fail");
             }
             textboxManager.setPostFunction(gameManager.startTurn);
             textboxTrigger.triggerTextbox();
@@ -106,14 +106,14 @@ public class EncounterDefend : Encounter
             // weapons skill check
             if (gameManager.weaponPow >= weaponsNeeded) {
                 // Passed Defend
-                Debug.Log("Defend Passed");
+                textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/pass");
             } 
             // first tier failed
             else if (gameManager.weaponPow < weaponsNeeded && gameManager.weaponPow >= worseWeaponsNeeded) {
                 gameManager.damageInc(hullDamage);
                 gameManager.healthInc(-(healthDamage));
-                //textboxTrigger.loadTxtFile("encounter_defend_1_fail");
-                Debug.Log("Defend partially failed");
+                
+                textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/fail");
             }
             else if (gameManager.weaponPow < worseWeaponsNeeded)
             {
@@ -123,7 +123,7 @@ public class EncounterDefend : Encounter
                 {
                     AdditionalPunishment(additionalPunishment, additionalPunishmentType);
                 }
-                Debug.Log("Defense lost bad");
+                textboxTrigger.loadTxtFile("Encounter/" + encounterName + "/fail");
             }
             textboxManager.setPostFunction(gameManager.startTurn);
             textboxTrigger.triggerTextbox();
