@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EncounterRival : Encounter
 {
-    public string encounterName;
     public int weaponsDefend;
     public int weaponsAttack;
 

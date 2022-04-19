@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EncounterHappiness : Encounter
 {
-    public string encounterName;
 
     public int failPenalty;
     public int successReward;

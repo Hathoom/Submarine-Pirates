@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class EncounterTreasure : Encounter
 {
-    
-    public string encounterName;
+
     public int reward;
 
     public int rewardType;
