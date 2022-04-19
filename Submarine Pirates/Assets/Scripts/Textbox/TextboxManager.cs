@@ -29,10 +29,7 @@ public class TextboxManager : MonoBehaviour
     }
 
     void Update() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            FindObjectOfType<TextboxTrigger>().loadTxtFile("test");
-            FindObjectOfType<TextboxTrigger>().triggerTextbox();
-        }
+
     }
 
     public void startTextbox(TextboxScript script)
